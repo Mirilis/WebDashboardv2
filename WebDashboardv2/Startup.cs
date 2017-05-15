@@ -32,6 +32,7 @@ namespace WebDashboardv2
             services.AddDbContext<Model.ProcessCardContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProcessCardConnection")));
             services.AddMvc();
             services.AddTransient<Model.IProcessCardsModel, Model.ProcessCardsModel>();
+            services.AddTransient<Model.IUserAccessModel, Model.UserAccessModel>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

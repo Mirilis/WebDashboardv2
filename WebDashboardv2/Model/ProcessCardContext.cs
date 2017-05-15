@@ -43,6 +43,8 @@ namespace WebDashboardv2.Model
 
         public string Title { get; set; }
 
+        public ApproverAccess ValidAccess { get; set; }
+
         public virtual ICollection<DataPoint> DataPoints { get; set; }
         public Approver()
         {
@@ -76,6 +78,18 @@ namespace WebDashboardv2.Model
         Finishing
     }
 
+   public class BlisProductsView
+    {
+        [Key]
+        public int ID { get; set; }
+        public string Product { get; set; }
+        public string Description { get; set; }
+        public string MoldCenter { get; set; }
+        public string Impressions { get; set; }
+        public string PourWeight { get; set; }
+        public string CastingWeight { get; set; }
+    }
+
     public class ProcessCard
     {
         [Key]
@@ -95,6 +109,22 @@ namespace WebDashboardv2.Model
             DataPoints = new List<DataPoint>();
         }
     }
+    [Flags]
+    public enum ApproverAccess
+    {
+        CoremakeCB22 = 1,
+        Coremake321 = 2 ,
+        CoremakeLaempe = 4,
+        Coremake106 =8,
+        CoreAssembly = 16,
+        MoldingOsborn = 32,
+        MoldingSinto = 64,
+        MeltingOsborn = 128,
+        MeltingSinto = 256,
+        CleaningOsborn = 512,
+        CleaningSinto = 1024,
+        Finishing = 2048
+    }
 
     public class ProcessCardContext : DbContext
     {
@@ -107,6 +137,7 @@ namespace WebDashboardv2.Model
         public DbSet<Approver> Approvers { get; set; }
         public DbSet<DataPoint> DataPoints { get; set; }
         public DbSet<ProcessCardKey> ProcessCardKeys { get; set; }
+        public DbSet<BlisProductsView> BlisProductsView { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

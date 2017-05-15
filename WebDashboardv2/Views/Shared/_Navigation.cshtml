@@ -1,16 +1,27 @@
-﻿<nav class="navbar-default navbar-static-side" role="navigation">
+﻿@using WebDashboardv2.Model;
+@inject WebDashboardv2.Model.IUserAccessModel UserAccess;
+
+<style>
+    .img-circle {
+        height: auto;
+        width: auto;
+        max-height: 48px;
+        max-width: 48px;
+    }
+</style>
+<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="~/Images/profile_small.jpg" />
+                        <img alt="image" class="img-circle" src="~/Images/catprofile_small.jpg" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
                             <span class="block m-t-xs">
-                                <strong class="font-bold">@System.Security.Principal.WindowsIdentity.GetCurrent().Name</strong>
-                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                                <strong class="font-bold">@UserAccess.Name</strong>
+                            </span> <span class="text-muted text-xs block">@UserAccess.Title<b class="caret"></b></span>
                         </span>
                     </a>
                 </div>

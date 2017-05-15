@@ -1,103 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-using Newtonsoft.Json;
-using System.IO;
-using SkiaSharp;
-
-
 
 namespace WebDashboardv2.Model
 {
     public class DbInitializer
     {
-            public static void Initialize(ProcessCardContext context)
-            {
-                context.Database.EnsureCreated();
-            
-            
-     
+        #region Public Methods
+
+        public static void Initialize(ProcessCardContext context)
+        {
+            context.Database.EnsureCreated();
 
             // Look for any students.
-            if (context.ProcessCards.Any())
-                {
-                    return;   // DB has been seeded
-                }
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "GasTime", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "GasPressure", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "BlowTime", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "GasTime", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "GasPressure", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "BlowTime", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "PatternLocation", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "SqueezePressure", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "FilterRequirements", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "PourTime", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "MetalGrade", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "CoarseTime", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "BatterSpecification", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "InclusionSpecification", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "MillTime", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.Finishing });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.Finishing });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "BatterSpecification", ProcessCardClass = ProcessCardClass.Finishing });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "InclusionSpecification", ProcessCardClass = ProcessCardClass.Finishing });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "PackSize", ProcessCardClass = ProcessCardClass.Finishing });
-
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = ProcessCardClass.CoreAssembly });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Customer", ProcessCardClass = ProcessCardClass.CoreAssembly });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "RequiredMaterial1", ProcessCardClass = ProcessCardClass.CoreAssembly });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "RequiredMaterial2", ProcessCardClass = ProcessCardClass.CoreAssembly });
-            context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "RequiredMaterial3", ProcessCardClass = ProcessCardClass.CoreAssembly });
-
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.1A.CB22", ProcessCardClass = ProcessCardClass.CoremakeCB22 });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.2A.LAEMPE", ProcessCardClass = ProcessCardClass.CoremakeLaempe });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.P01.OSBORN", ProcessCardClass = ProcessCardClass.MoldingOsborn });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.PP1", ProcessCardClass = ProcessCardClass.MeltingOsborn });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.L1INSPECT", ProcessCardClass = ProcessCardClass.CleaningOsborn });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.FINISHING", ProcessCardClass = ProcessCardClass.Finishing });
-            context.ProcessCards.Add(new ProcessCard() { ProductName = "TEST1.ASSEMBLY", ProcessCardClass = ProcessCardClass.CoreAssembly });
-
-            SaveChanges(context);
-
-            context.Approvers.Add(new Approver() { Email = "ahoover@grede.com", Name = "Adam Hoover", Title = "Industrial Engineer", WindowsName = @"MirilisPC\Mirilis" });
-            var defaultApprover = new Approver() { Email = "blank", Name = "System", Title = "System Process", WindowsName = "blank" };
-
-            context.Approvers.Add(defaultApprover);
-
-                   foreach (var item in context.ProcessCards)
+            if (!context.ProcessCardKeys.Any())
             {
-                foreach (var RequiredKeys in context.ProcessCardKeys.Where(x => x.ProcessCardClass == item.ProcessCardClass))
+                foreach (ProcessCardClass item in Enum.GetValues(typeof(ProcessCardClass)))
                 {
-                    item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x=>x.Name== "System").First(), Value = "blank", ApprovedDate = DateTime.Now, });
+                    context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "ProductName", ProcessCardClass = item });
+                    context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Description", ProcessCardClass = item });
+                    context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "Impressions", ProcessCardClass = item });
+                    context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "PourWeight", ProcessCardClass = item });
+                    context.ProcessCardKeys.Add(new ProcessCardKey() { Key = "CastingWeight", ProcessCardClass = item });
                 }
+
+                SaveChanges(context);
             }
 
-            SaveChanges(context);
+            if (!context.ProcessCards.Any())
+            {
+                foreach (var product in context.BlisProductsView)
+                {
+                    context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.Finishing });
+                    if (product.MoldCenter == "Sinto")
+                    {
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.CleaningSinto });
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.MoldingSinto });
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.MeltingSinto });
+                    }
+                    else
+                    {
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.MoldingOsborn });
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.MeltingOsborn });
+                        context.ProcessCards.Add(new ProcessCard() { ProductName = product.Product, ProcessCardClass = ProcessCardClass.CleaningOsborn });
+                    }
+                }
 
+                SaveChanges(context);
+            }
+
+            if (!context.Approvers.Any())
+            {
+                context.Approvers.Add(new Approver() { Email = "ahoover@grede.com", Name = "Adam Hoover", Title = "Industrial Engineer", WindowsName = @"GREDEW2K\AHOOVER" });
+                var defaultApprover = new Approver() { Email = "blank", Name = "System", Title = "System Process", WindowsName = "blank" };
+
+                context.Approvers.Add(defaultApprover);
+
+                SaveChanges(context);
+            }
+
+            if (!context.DataPoints.Any())
+            {
+                var ali = context.BlisProductsView.ToList();
+                var p = context.ProcessCards.ToList();
+                foreach (var item in p)
+                {
+                    var b = context.Approvers.Where(x => x.Name == "System").First();
+                    var a = ali.Where(x => x.Product == item.ProductName).First();
+                    var i = context.ProcessCardKeys.Where(x => x.ProcessCardClass == item.ProcessCardClass).ToList();
+                    foreach (var RequiredKeys in i)
+                    {
+                        switch (RequiredKeys.Key)
+                        {
+                            case "ProductName":
+
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.Product, ApprovedDate = DateTime.Now, });
+                                break;
+
+                            case "Description":
+
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.Description, ApprovedDate = DateTime.Now, });
+                                break;
+
+                            case "Impressions":
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.Impressions, ApprovedDate = DateTime.Now, });
+                                break;
+
+                            case "PourWeight":
+
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.PourWeight, ApprovedDate = DateTime.Now, });
+                                break;
+
+                            case "CastingWeight":
+
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.CastingWeight, ApprovedDate = DateTime.Now, });
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                    SaveChanges(context);
+                }
+            }
         }
+
+        #endregion Public Methods
+
+        #region Private Methods
+
         private static void SaveChanges(DbContext context)
         {
-                context.SaveChanges();
+            context.SaveChanges();
         }
+
+        #endregion Private Methods
     }
 }

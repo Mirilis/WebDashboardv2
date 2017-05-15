@@ -8,9 +8,10 @@ using WebDashboardv2.Model;
 namespace WebDashboardv2.Migrations
 {
     [DbContext(typeof(ProcessCardContext))]
-    partial class ProcessCardContextModelSnapshot : ModelSnapshot
+    [Migration("20170515151220_update1")]
+    partial class update1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -37,28 +38,6 @@ namespace WebDashboardv2.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Approvers");
-                });
-
-            modelBuilder.Entity("WebDashboardv2.Model.BlisProductsView", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CastingWeight");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Impressions");
-
-                    b.Property<string>("MoldCenter");
-
-                    b.Property<string>("PourWeight");
-
-                    b.Property<string>("Product");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("BlisProductsView");
                 });
 
             modelBuilder.Entity("WebDashboardv2.Model.DataPoint", b =>

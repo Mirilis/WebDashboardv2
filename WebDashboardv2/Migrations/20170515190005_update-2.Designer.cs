@@ -8,9 +8,10 @@ using WebDashboardv2.Model;
 namespace WebDashboardv2.Migrations
 {
     [DbContext(typeof(ProcessCardContext))]
-    partial class ProcessCardContextModelSnapshot : ModelSnapshot
+    [Migration("20170515190005_update-2")]
+    partial class update2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

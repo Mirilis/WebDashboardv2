@@ -10,20 +10,38 @@ namespace WebDashboardv2.Model
     {
         List<ProcessCard> ProcessCards { get; set; }
         List<ProcessCard> DepartmentalCards(ProcessCardClass pcc);
+        bool Update(string filename, string key, string value);
     }
 
     public class ProcessCardsModel : IProcessCardsModel
     {
         public List<ProcessCard> ProcessCards { get; set; }
-        private readonly ProcessCardContext sql;
+        private readonly ProcessCardContext context;
         public ProcessCardsModel(ProcessCardContext processCardContext)
         {
-            this.sql = processCardContext;
-            ProcessCards = sql.ProcessCards.Include(cards => cards.DataPoints).ToList();
+            this.context = processCardContext;
+            ProcessCards = context.ProcessCards.Include(cards => cards.DataPoints).ToList();
         }
         public List<ProcessCard> DepartmentalCards(ProcessCardClass pcc)
         {
-            return ProcessCards.Where(x => x.ProcessCardClass == pcc).ToList();
+            return ProcessCards.Where(x => x.ProcessCardClass == pcc).OrderBy(y=>y.ProductName).ToList();
+        }
+        public bool Update(string filename, string key, string value)
+        {
+            var pcA = context.ProcessCards.Where(x => x.ProductName == filename);
+            if (pcA.Any())
+            {
+                var pc = pcA.First().DataPoints.Where(x=>x.Key == key);
+                if (pc.Any())
+                {
+                    pc.First().Value = value;
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
     }
+
+    
 }
