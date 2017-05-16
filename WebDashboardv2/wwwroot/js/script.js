@@ -114,16 +114,16 @@ $(document).ready(function () {
     // Full height of sidebar
     function fix_height() {
         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
-        $(".sidebar-panel").css("min-height", heightWithoutNavbar + "px");
+        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
 
         var navbarHeight = $('nav.navbar-default').height();
-        var wrapperHeight = $('#page-wrapper').height();
+        var wrapperHeigh = $('#page-wrapper').height();
 
-        if (navbarHeight > wrapperHeight) {
+        if (navbarHeight > wrapperHeigh) {
             $('#page-wrapper').css("min-height", navbarHeight + "px");
         }
 
-        if (navbarHeight < wrapperHeight) {
+        if (navbarHeight < wrapperHeigh) {
             $('#page-wrapper').css("min-height", $(window).height() + "px");
         }
 

@@ -12,6 +12,12 @@ namespace WebDashboardv2.Model
         {
             context.Database.EnsureCreated();
 
+            if (!context.BlisProductsView.Any())
+            {
+                context.Add(new BlisProductsView() { Product = "T1", CastingWeight = "12", Description = "TEST1", Impressions = "2", MoldCenter = "Osborn", PourWeight = "60" });
+                context.Add(new BlisProductsView() { Product = "T1", CastingWeight = "12", Description = "TEST1", Impressions = "2", MoldCenter = "Sinto", PourWeight = "60" });
+            }
+
             // Look for any students.
             if (!context.ProcessCardKeys.Any())
             {
@@ -50,8 +56,10 @@ namespace WebDashboardv2.Model
             }
 
             if (!context.Approvers.Any())
-            {
-                context.Approvers.Add(new Approver() { Email = "ahoover@grede.com", Name = "Adam Hoover", Title = "Industrial Engineer", WindowsName = @"GREDEW2K\AHOOVER" });
+            { var s = "11111111111";
+                var i = Convert.ToInt32(s, 2);
+                context.Approvers.Add(new Approver() { Email = "ahoover@grede.com", Name = "Adam Hoover", Title = "Industrial Engineer", WindowsName = @"GREDEW2K\AHOOVER", ValidAccess = (ApproverAccess)i });
+                context.Approvers.Add(new Approver() { Email = "ahoover@grede.com", Name = "Adam Hoover", Title = "Industrial Engineer", WindowsName = @"MIRILISPC\MIRILIS", ValidAccess= (ApproverAccess)i });
                 var defaultApprover = new Approver() { Email = "blank", Name = "System", Title = "System Process", WindowsName = "blank" };
 
                 context.Approvers.Add(defaultApprover);
@@ -74,32 +82,33 @@ namespace WebDashboardv2.Model
                         {
                             case "ProductName":
 
-                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.Product, ApprovedDate = DateTime.Now, });
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.Product, Type = "string", ApprovedDate = DateTime.Now, });
                                 break;
 
                             case "Description":
 
-                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.Description, ApprovedDate = DateTime.Now, });
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.Description, Type = "string", ApprovedDate = DateTime.Now, });
                                 break;
 
                             case "Impressions":
-                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.Impressions, ApprovedDate = DateTime.Now, });
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.Impressions, Type = "string", ApprovedDate = DateTime.Now, });
                                 break;
 
                             case "PourWeight":
 
-                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.PourWeight, ApprovedDate = DateTime.Now, });
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.PourWeight, Type = "string", ApprovedDate = DateTime.Now, });
                                 break;
 
                             case "CastingWeight":
 
-                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = context.Approvers.Where(x => x.Name == "System").First(), Value = a.CastingWeight, ApprovedDate = DateTime.Now, });
+                                item.DataPoints.Add(new DataPoint() { Key = RequiredKeys.Key, Approver = b, Value = a.CastingWeight, Type="string", ApprovedDate = DateTime.Now, });
                                 break;
 
                             default:
                                 break;
                         }
                     }
+                    item.DataPoints.Add(new DataPoint() { Key = "Logo", Approver = b, ApprovedDate = DateTime.Now, Type = "image", Value = "blank" });
                     SaveChanges(context);
                 }
             }

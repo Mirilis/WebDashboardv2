@@ -27,12 +27,10 @@
     "jquery-idletimer": "~1.0.1",
     "jQuery.dotdotdot": "~1.7.4",
     "codemirror": "5.7.0",
-    "jstree": "~3.2.1",
-    "ladda": "~0.9.8",
     "masonry": "3.3.2",
     "bootstrap-tour": "~0.10.2",
-    "slick-carousel": "1.5.8",
-    "blueimp-gallery": "~2.16.0"
+    "blueimp-gallery": "~2.16.0",
+    "jquery-file-upload": "9.18.0"
   },
   "resolutions": {
     "jquery": ">=1.6.2"
