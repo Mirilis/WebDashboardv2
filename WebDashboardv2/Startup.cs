@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace WebDashboardv2
 {
@@ -32,7 +34,12 @@ namespace WebDashboardv2
             services.AddDbContext<Model.ProcessCardContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProcessCardConnection")));
             services.AddMvc();
             services.AddTransient<Model.IProcessCardsModel, Model.ProcessCardsModel>();
-            services.AddTransient<Model.IUserAccessModel, Model.UserAccessModel>();
+            services.AddSingleton<Model.IUserAccessModel, Model.UserAccessModel>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.Configure<FormOptions>(options =>
+            {
+                options.MemoryBufferThreshold = Int32.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +67,7 @@ namespace WebDashboardv2
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Model.DbInitializer.Initialize(context);
+           
         }
     }
 }

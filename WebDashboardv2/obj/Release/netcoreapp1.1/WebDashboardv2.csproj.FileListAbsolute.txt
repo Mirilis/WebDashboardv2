@@ -1,0 +1,9 @@
+C:\Projects\WebDashboardv2\WebDashboardv2\bin\Release\netcoreapp1.1\WebDashboardv2.deps.json
+C:\Projects\WebDashboardv2\WebDashboardv2\bin\Release\netcoreapp1.1\WebDashboardv2.runtimeconfig.json
+C:\Projects\WebDashboardv2\WebDashboardv2\bin\Release\netcoreapp1.1\WebDashboardv2.runtimeconfig.dev.json
+C:\Projects\WebDashboardv2\WebDashboardv2\bin\Release\netcoreapp1.1\WebDashboardv2.dll
+C:\Projects\WebDashboardv2\WebDashboardv2\bin\Release\netcoreapp1.1\WebDashboardv2.pdb
+C:\Projects\WebDashboardv2\WebDashboardv2\obj\Release\netcoreapp1.1\WebDashboardv2.csprojResolveAssemblyReference.cache
+C:\Projects\WebDashboardv2\WebDashboardv2\obj\Release\netcoreapp1.1\WebDashboardv2.AssemblyInfo.cs
+C:\Projects\WebDashboardv2\WebDashboardv2\obj\Release\netcoreapp1.1\WebDashboardv2.dll
+C:\Projects\WebDashboardv2\WebDashboardv2\obj\Release\netcoreapp1.1\WebDashboardv2.pdb

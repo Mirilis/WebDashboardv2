@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebDashboardv2.Model;
 using System.IO;
-
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.Net.Http;
+using System.Net;
 
 namespace WebDashboardv2.Controllers
 {
@@ -13,44 +17,86 @@ namespace WebDashboardv2.Controllers
     {
         private readonly Model.IProcessCardsModel ProcessCards;
         private readonly Model.IUserAccessModel UserAccess;
-        public ProcessCardsController(Model.IProcessCardsModel processCards, Model.IUserAccessModel userAccess)
+        private readonly IHostingEnvironment appEnvironment;
+
+        public ProcessCardsController(Model.IProcessCardsModel processCards, Model.IUserAccessModel userAccess, IHostingEnvironment appEnvironment)
         {
             this.ProcessCards = processCards;
             this.UserAccess = userAccess;
+            this.appEnvironment = appEnvironment;
         }
 
         [HttpPost]
-        public IActionResult Update(string value)
+        public string Update(string value)
         {
-            var p = value.Split(' ');
-            var a = ProcessCards.Update(p[0], p[1], p[2]);
-            if (a)
+            try
             {
-                return Json(new { success = true });
+
+                        var p = value.Split('-');
+            if (p.Count() == 4)
+            {
+                p[2] = Path.GetFileName(p[2]);
+                p[2] = p[2].Replace('*', '-');
+                var q = new string[3] { p[0], p[1], p[2], };
+                p = q;
             }
-            return Json(new { success = false });
+            if (p.Count() == 3)
+            {
+
+                var a = ProcessCards.Update(p[0], p[1], p[2]);
+                if (a)
+                {
+                    return string.Format("{0}-{1}-true", p[0], p[1]);
+                }
+                return string.Format("{0}-{1}-false", p[0], p[1]);
+            }
+            return "Bad Data Submitted.";
+        }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
         }
 
         [HttpPost]
-        public IActionResult UploadImage(string value)
+        public string UploadImage()
         {
-            var uid = Guid.NewGuid();
-            using (var ms = new MemoryStream((byte[])Newtonsoft.Json.JsonConvert.DeserializeObject(value)))
+        
+            long size = 0;
+            var files = Request.Form.Files;
+            foreach (var file in files)
             {
-                using (FileStream file = new FileStream("/images/" + uid + ".jpg", FileMode.Create, System.IO.FileAccess.Write))
+                
+                var fileName = ContentDispositionHeaderValue
+                                .Parse(file.ContentDisposition)
+                                .FileName
+                                .Trim('"');
+                if (fileName.ToLower().Contains(".jpg") || fileName.ToLower().Contains(".png"))
                 {
-                    byte[] bytes = new byte[ms.Length];
-                    ms.Read(bytes, 0, (int)ms.Length);
-                    file.Write(bytes, 0, bytes.Length);
+                    fileName = Path.GetFileName(fileName);
+                    var filename = appEnvironment.WebRootPath + @"/pdfcreator/content/pdfImages/" + $@"/{fileName}";
+                size += file.Length;
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+                    return "File Upload Complete";
                 }
             }
-            return Json(new { success = false });
+            return "File Upload Failed.";
         }
             public IActionResult All()
         {
-            ViewData["ProcessCards"] = ProcessCards.ProcessCards;
-            ViewData["UserAccess"] = false;
                 return View();
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var currentProcesscard = ProcessCards.ProcessCards.Where(x => x.ID == id).First();
+            ViewData["CurrentCard"] = currentProcesscard;
+            return PartialView("_EditDetails");
+
         }
 
         public IActionResult Index(int id)

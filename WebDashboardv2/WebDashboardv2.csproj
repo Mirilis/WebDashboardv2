@@ -7,15 +7,130 @@
   <PropertyGroup>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\lib\footable\.bower.json" />
+    <Content Include="wwwroot\lib\footable\.csslintrc" />
+    <Content Include="wwwroot\lib\footable\.gitattributes" />
+    <Content Include="wwwroot\lib\footable\.jshintrc" />
+    <Content Include="wwwroot\lib\footable\.travis.yml" />
+    <Content Include="wwwroot\lib\footable\bower.json" />
+    <Content Include="wwwroot\lib\footable\component.json" />
+    <Content Include="wwwroot\lib\footable\composer.json" />
+    <Content Include="wwwroot\lib\footable\css\fonts\footable.eot" />
+    <Content Include="wwwroot\lib\footable\css\fonts\footable.svg" />
+    <Content Include="wwwroot\lib\footable\css\fonts\footable.ttf" />
+    <Content Include="wwwroot\lib\footable\css\fonts\footable.woff" />
+    <Content Include="wwwroot\lib\footable\css\footable.core.css" />
+    <Content Include="wwwroot\lib\footable\css\footable.core.min.css" />
+    <Content Include="wwwroot\lib\footable\css\footable.metro.css" />
+    <Content Include="wwwroot\lib\footable\css\footable.metro.min.css" />
+    <Content Include="wwwroot\lib\footable\css\footable.standalone.css" />
+    <Content Include="wwwroot\lib\footable\css\footable.standalone.min.css" />
+    <Content Include="wwwroot\lib\footable\demos\accordion.htm" />
+    <Content Include="wwwroot\lib\footable\demos\add-delete-row.htm" />
+    <Content Include="wwwroot\lib\footable\demos\ajax-redraw.htm" />
+    <Content Include="wwwroot\lib\footable\demos\ajax.htm" />
+    <Content Include="wwwroot\lib\footable\demos\api.htm" />
+    <Content Include="wwwroot\lib\footable\demos\arbitrary_toggle_markup.htm" />
+    <Content Include="wwwroot\lib\footable\demos\auto-expand-first-row-on-breakpoint.htm" />
+    <Content Include="wwwroot\lib\footable\demos\bookmarkable.htm" />
+    <Content Include="wwwroot\lib\footable\demos\bug-fixes\bug-data-ignore.htm" />
+    <Content Include="wwwroot\lib\footable\demos\bug-fixes\bug-remove-unneeded-detail-row-click.htm" />
+    <Content Include="wwwroot\lib\footable\demos\bug-fixes\bug-unused-breakpoints.htm" />
+    <Content Include="wwwroot\lib\footable\demos\css\arbitrary_toggle_markup.css" />
+    <Content Include="wwwroot\lib\footable\demos\css\bootstrap-glyphicons.css" />
+    <Content Include="wwwroot\lib\footable\demos\css\bootstrap-responsive.css" />
+    <Content Include="wwwroot\lib\footable\demos\css\bootstrap.css" />
+    <Content Include="wwwroot\lib\footable\demos\css\bootstrapSwitch.css" />
+    <Content Include="wwwroot\lib\footable\demos\css\footable-demos.css" />
+    <Content Include="wwwroot\lib\footable\demos\data-attributes.htm" />
+    <Content Include="wwwroot\lib\footable\demos\demo-template.htm" />
+    <Content Include="wwwroot\lib\footable\demos\editable-columns.htm" />
+    <Content Include="wwwroot\lib\footable\demos\event-interception.htm" />
+    <Content Include="wwwroot\lib\footable\demos\events.htm" />
+    <Content Include="wwwroot\lib\footable\demos\expand-collapse-all.htm" />
+    <Content Include="wwwroot\lib\footable\demos\filtering.htm" />
+    <Content Include="wwwroot\lib\footable\demos\fonts\glyphiconshalflings-regular.eot" />
+    <Content Include="wwwroot\lib\footable\demos\fonts\glyphiconshalflings-regular.otf" />
+    <Content Include="wwwroot\lib\footable\demos\fonts\glyphiconshalflings-regular.svg" />
+    <Content Include="wwwroot\lib\footable\demos\fonts\glyphiconshalflings-regular.ttf" />
+    <Content Include="wwwroot\lib\footable\demos\fonts\glyphiconshalflings-regular.woff" />
+    <Content Include="wwwroot\lib\footable\demos\getting-started.htm" />
+    <Content Include="wwwroot\lib\footable\demos\grid.htm" />
+    <Content Include="wwwroot\lib\footable\demos\group-headers.htm" />
+    <Content Include="wwwroot\lib\footable\demos\hidden-columns.htm" />
+    <Content Include="wwwroot\lib\footable\demos\icon-styles.htm" />
+    <Content Include="wwwroot\lib\footable\demos\img\footable.png" />
+    <Content Include="wwwroot\lib\footable\demos\img\minus.png" />
+    <Content Include="wwwroot\lib\footable\demos\img\plus.png" />
+    <Content Include="wwwroot\lib\footable\demos\index.htm" />
+    <Content Include="wwwroot\lib\footable\demos\js\bootstrap-tab.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\bootstrapSwitch.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\data-generator.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\demos.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\jquery-1.9.1.min.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\jquery.mockjax.js" />
+    <Content Include="wwwroot\lib\footable\demos\js\mustache.js" />
+    <Content Include="wwwroot\lib\footable\demos\metro-theme.htm" />
+    <Content Include="wwwroot\lib\footable\demos\multiple-showcases.htm" />
+    <Content Include="wwwroot\lib\footable\demos\old-theme.htm" />
+    <Content Include="wwwroot\lib\footable\demos\paging.htm" />
+    <Content Include="wwwroot\lib\footable\demos\reset.htm" />
+    <Content Include="wwwroot\lib\footable\demos\row-toggle.htm" />
+    <Content Include="wwwroot\lib\footable\demos\showcase.htm" />
+    <Content Include="wwwroot\lib\footable\demos\sorting.htm" />
+    <Content Include="wwwroot\lib\footable\demos\striping.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\column-groupings.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\demo-ajax-with-mustache.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\demo-bootstrapSwitch.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\demo-colspan.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\demo-widthHeightOverride.htm" />
+    <Content Include="wwwroot\lib\footable\demos\todo\demo-zebra.htm" />
+    <Content Include="wwwroot\lib\footable\demos\triggers.htm" />
+    <Content Include="wwwroot\lib\footable\dist\footable.all.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.bookmarkable.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.filter.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.grid.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.paginate.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.sort.min.js" />
+    <Content Include="wwwroot\lib\footable\dist\footable.striping.min.js" />
+    <Content Include="wwwroot\lib\footable\footable.jquery.json" />
+    <Content Include="wwwroot\lib\footable\Gruntfile.js" />
+    <Content Include="wwwroot\lib\footable\icomoon\footable.json" />
+    <Content Include="wwwroot\lib\footable\js\.jshintrc" />
+    <Content Include="wwwroot\lib\footable\js\footable.bookmarkable.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.filter.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.grid.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.memory.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.paginate.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.plugin.template.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.sort.js" />
+    <Content Include="wwwroot\lib\footable\js\footable.striping.js" />
+    <Content Include="wwwroot\lib\footable\less\footable.core.less" />
+    <Content Include="wwwroot\lib\footable\less\footable.metro.less" />
+    <Content Include="wwwroot\lib\footable\less\footable.standalone.less" />
+    <Content Include="wwwroot\lib\footable\LICENSE" />
+    <Content Include="wwwroot\lib\footable\package.json" />
+    <Content Include="wwwroot\lib\footable\README.md" />
+    <Content Include="wwwroot\lib\footable\screenshot.jpg" />
+    <Content Include="wwwroot\lib\footable\screenshot.pdn" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="microsoft.aspnetcore.identity" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.1" />
     <PackageReference Include="microsoft.entityframeworkcore.tools" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
     <PackageReference Include="skiasharp" Version="1.57.1" />
   </ItemGroup>
   <ItemGroup>

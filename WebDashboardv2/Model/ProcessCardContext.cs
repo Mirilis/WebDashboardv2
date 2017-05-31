@@ -104,6 +104,26 @@ namespace WebDashboardv2.Model
 
         public virtual ICollection<DataPoint> DataPoints { get; set; }
 
+        [NotMapped]
+        public ICollection<DataPoint> CurrentRevision {
+            get
+            {
+                if (currentRevision == null)
+                {
+                    var p = DataPoints.OrderByDescending(x => x.ApprovedDate);
+                    var a = DataPoints.Select(x => x.Key).Distinct();
+                    var result = new List<DataPoint>();
+                    foreach (var item in a)
+                    {
+                        result.Add(p.First(x => x.Key == item));
+                    }
+
+                    currentRevision = result.OrderByDescending(x => x.Type).ThenBy(y => y.Key).ToList();
+                }
+                return currentRevision;
+            }
+        }
+        private List<DataPoint> currentRevision;
         public ProcessCard()
         {
             DataPoints = new List<DataPoint>();

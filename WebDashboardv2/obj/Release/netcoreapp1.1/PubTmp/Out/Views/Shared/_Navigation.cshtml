@@ -1,0 +1,90 @@
+﻿@using WebDashboardv2.Model;
+@inject WebDashboardv2.Model.IUserAccessModel UserAccess;
+
+<style>
+    .img-circle {
+        height: auto;
+        width: auto;
+        max-height: 48px;
+        max-width: 48px;
+    }
+</style>
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <span>
+                        <img alt="image" class="img-circle" src="~/Images/catprofile_small.jpg" />
+                    </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold">@UserAccess.Name</strong>
+                            </span> <span class="text-muted text-xs block">@UserAccess.Title<b class="caret"></b></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    NEMF
+                </div>
+            </li>
+
+            <li class="@Html.IsSelected(controller: "ProcessCards")">
+                <a asp-controller="ProcessCards" , asp-action="Index">
+                    <i class="fa fa-gears"></i>
+                    <span class="nav-label">Process Cards</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "ProcessCards", cssClass: "in")">
+                    <li>
+                        <a asp-controller="ProcessCards", asp-action="Index">
+                            <span class="nav-label">Coremake</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level">
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">CB22 Coremake</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="1">Laempe Coremake</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="2">321 Coremake</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="3">106 Coremake</a></li>
+                        </ul>
+                    </li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="4">Core Assembly</a></li>
+                    <li>
+                        <a asp-controller="ProcessCards", asp-action="Molding">
+                            <span class="nav-label">Molding</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level">
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="5">Osborn Molding</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="6">Sinto Molding</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="ProcessCards", asp-action="Index">
+                            <span class="nav-label">Melt</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level">
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="7">Pressure Pour 1</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="8">Pressure Pour 2</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="ProcessCards", asp-action="Index">
+                            <span class="nav-label">Cleaning</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level">
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="9">Line 1 Inspect</a></li>
+                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="10">Line 2 Inspect</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="ProcessCards", asp-action="Index" asp-route-id="11">Finishing</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

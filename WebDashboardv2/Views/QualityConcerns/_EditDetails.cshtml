@@ -1,0 +1,195 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    WebDashboardv2.Model.ProcessCard card = (WebDashboardv2.Model.ProcessCard)ViewData["CurrentCard"];
+    string ProcessCardClass = (string)ViewData["CardClass"];
+
+}
+@if (card != null)
+{
+    <head>
+        <style>
+            .update-text {
+                width:400px;
+            }
+            .pulsing {
+                animation-duration: 3s;
+                animation-name: pulse;
+                animation-iteration-count: infinite;
+             
+            }
+
+        </style>
+    </head>
+<div class="col-lg-9">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>Data Values</h5>
+        </div>
+        <div class="ibox-content">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var dp in card.CurrentRevision)
+                    {
+                        if (dp.Type == "image")
+                        {
+                            <tr>
+                                <td>@dp.Key</td>
+                                <td width="400">
+                                    <div>
+                                        <label>Current File:</label>
+                                        <label>@dp.Value</label>
+                                    </div>
+                                    <form id="@card.ID-@dp.Key-IMGFORM" method="post" enctype="multipart/form-data">
+                                        <input id="@card.ID-@dp.Key-IMG" type="file" name="@card.ID-@dp.Key-IMG" />
+                                    </form>
+                                </td>
+                                <td>
+					<div>
+						<input name="lockedBtn" id="@card.ID-@dp.Key-BTN" class="update-img-button" type="button" value="Update" data-style="expand-right" hidden="hidden" />
+					</div>
+					<div name="pulsar" class="m-sm fa fa-2x fa-rss pulsing"  id="@card.ID-@dp.Key-DL" />
+					<div>
+						<span>
+							<label class="update-label fa fa-check" id="@card.ID-@dp.Key-LBL"></label>
+                                                </span>
+					</div>
+				</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@dp.Key</td>
+                                <td><input class="update-text" name="lockedTxt" id="@card.ID-@dp.Key-TXT" type="text" value="@dp.Value" readonly="readonly" /></td>
+                                <td><span><label class="update-label fa fa-check" id="@card.ID-@dp.Key-LBL"></label></span></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+	    $('div[name="pulsar"]').hide();
+        $('input[name="lockedTxt"]').attr("readonly", false);
+        $('input[name="lockedBtn"]').attr("hidden", false);
+        $('.update-img-button').click(function () {
+              //image id;
+            var imageId = ($(this).attr("id")).replace("BTN", "IMG");
+            //labelId;
+            var labelId = ($(this).attr("id")).replace("BTN", "LBL");
+            //labelId;
+            var dlPulsarId = ($(this).attr("id")).replace("BTN", "DL");
+
+            if ($("#" + dlPulsarId).length) {
+                console.log(dlPulsarId + "exists.");
+            }
+            else {
+                console.log("dlPulsarId is not valid");
+            }
+            if ($("#" + labelId).length) {
+                console.log(labelId + "exists.");
+            }
+            else {
+                console.log("labelId is not valid");
+            }
+            if ($("#" + imageId).length) {
+                console.log(imageId + "exists.");
+            }
+            else {
+                console.log("imageId is not valid");
+            }
+
+            var fileUpload = $("#" + imageId).get(0);
+            var files = fileUpload.files;
+            var fileName = files[0].name;
+            fileName = fileName.replace("-", "*");
+
+            console.log(fileName);
+            if (fileName.length =0) {
+                alert("File Not Successfully Made Available.");
+            }
+            var sqlFilePostString = imageId.replace("IMG", fileName + "-file");
+            console.log(sqlFilePostString);
+            var data = new FormData();
+            data.append(files[0].name, files[0]);
+            
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UploadImage")",
+                contentType: false,
+                processData: false,
+                data: data,
+                dataType: "text",
+                complete: function () {
+                    console.log("In Upload Complete");
+                    $("#"+dlPulsarId).hide();
+
+                },
+                success: function (success) {
+                    console.log("In Success UploadImage");
+                    $("#"+dlPulsarId).show();
+                    $.ajax({
+                         type: "POST",
+                         url: "@Url.Action("Update")",
+                         data: { value: sqlFilePostString },
+                         dataType: "text",
+                         success: function (sqlload) {
+                             console.log("In Success Update SQL");
+                             console.log(sqlload);
+                             $("#"+labelId).fadeIn().delay(1500).fadeOut();
+                         },
+                         error: function () {
+                              alert("SQL path upload failed.");
+                         }
+                     })
+                },
+                error: function () {
+                    alert("Image Upload Failed");
+                }
+            })
+        });
+
+        function replace(str, original, replacement) {
+            return str.replace(new RegExp(original, 'g'), replacement);
+        };
+        $('.update-text').change(function () {
+            console.log("Entering update-text");
+            var a = ($(this).attr("id"));
+            console.log(a);
+            var newVal = $(this).attr("id").replace("TXT", replace($(this).val(), "-", " "));
+            console.log(newVal);
+
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("Update")",
+            data: { value: newVal },
+            dataType: "text",
+            success: function (success) {
+                success = success.replace("true", "LBL");
+                $("label[id='" + success + "']").fadeIn().delay(1500).fadeOut();
+            },
+            error: function () {
+                alert("Update Failed");
+            }
+
+        })
+    })
+});
+</script>
+}

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace WebDashboardv2.Model
 {
@@ -11,17 +15,34 @@ namespace WebDashboardv2.Model
         string Email { get; }
         string Title { get; }
         bool IsAuthorizedToEdit(ProcessCardClass c);
+        void UpdateUser(string currUsr);
     }
     public class UserAccessModel : IUserAccessModel
     {
         private readonly ProcessCardContext context;
         private Approver currentUser;
         
-        public UserAccessModel(ProcessCardContext context)
+        public UserAccessModel(ProcessCardContext context, IHttpContextAccessor contextaccessor)
         {
-            var currUsr = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             this.context = context;
-            this.currentUser = context.Approvers.Where(x => x.WindowsName == currUsr).First();
+            
+        }
+        public void UpdateUser(string currUsr)
+        {
+            if (currUsr == null)
+            {
+                currUsr = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            }
+            try
+            {
+                this.currentUser = context.Approvers.Where(x => x.WindowsName == currUsr).First();
+            }
+            catch
+            {
+                context.Add(new Approver() { Email = "blank", Name = "Anonymous", ValidAccess = 0, Title = "Anonymous User", WindowsName = currUsr });
+                context.SaveChanges();
+                this.currentUser = context.Approvers.Where(x => x.WindowsName == currUsr).First();
+            }
         }
 
         public string Name { get =>  currentUser.Name; } 

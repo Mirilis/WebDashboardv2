@@ -1,0 +1,154 @@
+@{
+    ViewData["Title"] = "Quality Alerts";
+
+}
+@{
+    List<WebDashboardv2.Model.MinProcessCard> ProcessCards = (List<WebDashboardv2.Model.MinProcessCard>)ViewData["ProcessCards"];
+    string ProcessCardClass = (string)ViewData["CardClass"];
+    string CanEdit = ViewData["UserAccess"].ToString().ToLower();
+}
+<head>
+    <style>
+        .update-label {
+            display: none;
+        }
+    </style>
+</head>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Quality Alerts</h5>
+            </div>
+            <div class="ibox-content">
+                <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                       placeholder="Search Process Cards">
+
+                <table class="footable table toggle-circle table-stripped" data-filter-min="0" data-page-size="25" data-filter=#filter>
+                    <thead>
+                        <tr>
+                            <th width="125">Product</th>
+                            <th width="125">Last 90 Days</th>
+                            <th width="50">All Time</th>
+                            <th data-hide="all">Details</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var card in ProcessCards)
+                        {
+                            var p = new Random(); var q = p.Next(0, 5); var r = p.Next(0, 25) + q;
+                            <tr class="gradeX" id="@card.ID-main">
+                                <td>@card.ProductName</td>
+
+                                <td>
+                                    @{ q = p.Next(0, 5); }@q
+                                </td>
+                                <td>
+                                    @{ r = p.Next(0, 25) + q; }@r
+                                </td>
+
+                                <td>
+                                    <div class="col-lg-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description</th>
+                                                    <th>Date</th>
+                                                    <th>PDF</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Customer Complaint: Flash Too High</td>
+                                                    <td>@DateTime.Now</td>
+                                                    <td><i class="fa fa-file-pdf-o"></i></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Yet Another Hardness Issue</td>
+                                                    <td>@DateTime.Now</td>
+                                                    <td><i class="fa fa-file-pdf-o"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                                    }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.footable').footable();
+        });
+    </script>
+
+
+    <script type="text/javascript">
+                    $(document).ready(function () {
+
+                        // Add slimscroll to element
+                        $('.scroll_content').slimscroll({
+                            height: '25px'
+                        })
+                        $('input[name="lockedTxt"]').attr("readonly", !@CanEdit);
+                        $('.edit-button').click( function (evt) {
+                            evt.preventDefault();
+                            evt.stopPropagation();
+                            var a = $(this).attr("id").replace("edit", "details");
+                            url = $(this).attr('href');
+                            $("div[id='" + a + "']").load(url, function () {
+                                var a = $(this).attr("id").replace("details", "main");
+                                $("tr[id='" + a + "']").trigger('footable_toggle_row');
+                            });
+
+
+
+
+                        });
+                    });
+
+
+    </script>
+}
+
+
+
