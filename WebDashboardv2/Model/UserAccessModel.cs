@@ -15,27 +15,33 @@ namespace WebDashboardv2.Model
         string Email { get; }
         string Title { get; }
         bool IsAuthorizedToEdit(ProcessCardClass c);
-        void UpdateUser(string currUsr);
+        bool Exists { get; }
     }
     public class UserAccessModel : IUserAccessModel
     {
         private readonly ProcessCardContext context;
+        private readonly IHttpContextAccessor contextAccessor;
         private Approver currentUser;
+
+        public bool Exists { get; private set; }
         
         public UserAccessModel(ProcessCardContext context, IHttpContextAccessor contextaccessor)
         {
             this.context = context;
-            
+            this.contextAccessor = contextaccessor;
+            UpdateUser(contextAccessor.HttpContext.User.Identity.Name);
         }
-        public void UpdateUser(string currUsr)
+        private void UpdateUser(string currUsr)
         {
             if (currUsr == null)
             {
                 currUsr = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                Exists = false;
             }
             try
             {
                 this.currentUser = context.Approvers.Where(x => x.WindowsName == currUsr).First();
+                Exists = true;
             }
             catch
             {

@@ -40,6 +40,12 @@ namespace WebDashboardv2
             {
                 options.MemoryBufferThreshold = Int32.MaxValue;
             });
+            services.Configure<IISOptions>(options => 
+            {
+                options.ForwardWindowsAuthentication = true;
+                options.AutomaticAuthentication = true;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +65,7 @@ namespace WebDashboardv2
             }
 
             app.UseStaticFiles();
-
+//            app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
