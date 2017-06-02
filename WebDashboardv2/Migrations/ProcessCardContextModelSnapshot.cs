@@ -39,10 +39,37 @@ namespace WebDashboardv2.Migrations
                     b.ToTable("Approvers");
                 });
 
+            modelBuilder.Entity("WebDashboardv2.Model.BlisCoresView", b =>
+                {
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(15);
+
+                    b.Property<string>("ActiveStatus");
+
+                    b.Property<string>("BaseCoreNumber");
+
+                    b.Property<string>("Box");
+
+                    b.Property<string>("CoreWeightPerCavityOrFamilySet");
+
+                    b.Property<string>("CoresPerFamily");
+
+                    b.Property<string>("MachineType");
+
+                    b.Property<string>("ProductNumber");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("BlisCoresView");
+                });
+
             modelBuilder.Entity("WebDashboardv2.Model.BlisProductsView", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ActiveStatus");
 
                     b.Property<string>("CastingWeight");
 

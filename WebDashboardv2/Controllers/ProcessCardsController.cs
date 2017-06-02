@@ -93,7 +93,7 @@ namespace WebDashboardv2.Controllers
 
         public IActionResult Edit(int id)
         {
-            var currentProcesscard = ProcessCards.ProcessCards.Where(x => x.ID == id).First();
+            var currentProcesscard = ProcessCards.GetProcessCard(id);
             ViewData["CurrentCard"] = currentProcesscard;
             return PartialView("_EditDetails");
 

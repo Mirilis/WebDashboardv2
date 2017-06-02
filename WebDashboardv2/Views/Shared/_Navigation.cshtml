@@ -2,7 +2,7 @@
 @inject WebDashboardv2.Model.IUserAccessModel UserAccess;
 
 <style>
-    .img-circle {
+    .img {
         height: auto;
         width: auto;
         max-height: 48px;
@@ -15,7 +15,7 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="~/Images/catprofile_small.jpg" />
+                        <img alt="image" class="img" src="~/images/AAM FULL LOGO JPG.jpg" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear">
@@ -37,18 +37,7 @@
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "ProcessCards", cssClass: "in")">
-                    <li>
-                        <a asp-controller="ProcessCards", asp-action="Index">
-                            <span class="nav-label">Coremake</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-third-level">
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">CB22 Coremake</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="1">Laempe Coremake</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="2">321 Coremake</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="3">106 Coremake</a></li>
-                        </ul>
-                    </li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">Core Assembly</a></li>
                     <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="4">Core Assembly</a></li>
                     <li>
                         <a asp-controller="ProcessCards", asp-action="Molding">

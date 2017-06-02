@@ -9,9 +9,9 @@ namespace WebDashboardv2.Model
 {
     public interface IProcessCardsModel
     {
-        List<ProcessCard> ProcessCards { get; }
         List<MinProcessCard> DepartmentalCards(ProcessCardClass pcc);
         bool Update(string filename, string key, string value);
+        ProcessCard GetProcessCard(int id);
     }
 
     public class MinProcessCard
@@ -26,21 +26,12 @@ namespace WebDashboardv2.Model
             this.ProcessCardType = cls;
         }
     }
-        
 
+    
     public class ProcessCardsModel : IProcessCardsModel
     {
-        public List<ProcessCard> ProcessCards
-        {
-            get
-            {
-                if (processCards == null)
-                {
-                    processCards = context.ProcessCards.Include(cards => cards.DataPoints).ToList();
-                }
-                return processCards;
-            }
-        }
+        private readonly List<BlisProductsView> products;
+            
         private List<MinProcessCard> minCards;
         public List<MinProcessCard> MinCards
         {
@@ -48,24 +39,37 @@ namespace WebDashboardv2.Model
             {
                 if (minCards == null)
                 {
-                    minCards = context.ProcessCards.Select(x => new MinProcessCard(x.ID, x.ProductName, x.ProcessCardType)).OrderBy(y => y.ProductName).ToList();
+                    minCards = context.ProcessCards.Where(a=> products.Any(y=>a.ProductName.Contains(y.Product))).Select(x => new MinProcessCard(x.ID, x.ProductName, x.ProcessCardType)).OrderBy(y => y.ProductName).ToList();
                 }
                 return minCards;
             }
         }
-                
-        private List<ProcessCard> processCards;
+
+        public ProcessCard GetProcessCard(int id)
+        {
+            return context.ProcessCards.Where(x => x.ID == id).Include(cards => cards.DataPoints).First();
+        }
+
+        
         private readonly ProcessCardContext context;
         private readonly IUserAccessModel userAccess;
         public ProcessCardsModel(ProcessCardContext processCardContext, IUserAccessModel userAccess)
         {
             this.context = processCardContext;
             this.userAccess = userAccess;
+            this.products = context.BlisProductsView.Where(x => x.ActiveStatus.Contains("Y")).ToList();
 
         }
 
         public List<MinProcessCard> DepartmentalCards(ProcessCardClass pcc)
         {
+            if ((int)pcc == 0)
+            {
+                var pcc1 = (ProcessCardClass)1;
+                var pcc2 = (ProcessCardClass)2;
+                var pcc3 = (ProcessCardClass)3;
+                return MinCards.Where(x => x.ProcessCardType == pcc.ToString().ToSentenceCase() || x.ProcessCardType == pcc1.ToString().ToSentenceCase() || x.ProcessCardType == pcc2.ToString().ToSentenceCase() || x.ProcessCardType == pcc3.ToString().ToSentenceCase()).ToList();
+            }
             return MinCards.Where(x => x.ProcessCardType == pcc.ToString().ToSentenceCase()).ToList();
         }
         public bool Update(string ID, string key, string value)
@@ -85,6 +89,7 @@ namespace WebDashboardv2.Model
                     pcA.First().DataPoints.Add(newDataPoint);
                     context.SaveChanges();
                     return true;
+
                 }
             }
             return false;

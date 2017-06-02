@@ -33,8 +33,8 @@ namespace WebDashboardv2
             // Add framework services.
             services.AddDbContext<Model.ProcessCardContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProcessCardConnection")));
             services.AddMvc();
-            services.AddTransient<Model.IProcessCardsModel, Model.ProcessCardsModel>();
-            services.AddSingleton<Model.IUserAccessModel, Model.UserAccessModel>();
+            services.AddSingleton<Model.IProcessCardsModel, Model.ProcessCardsModel>();
+            services.AddScoped<Model.IUserAccessModel, Model.UserAccessModel>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<FormOptions>(options =>
             {

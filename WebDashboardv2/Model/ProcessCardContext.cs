@@ -88,6 +88,27 @@ namespace WebDashboardv2.Model
         public string Impressions { get; set; }
         public string PourWeight { get; set; }
         public string CastingWeight { get; set; }
+        public string ActiveStatus { get; set; }
+    }
+
+    public class BlisCoresView
+    {
+        [Key]
+        [StringLength(15)]
+        public string ID { get; set; }
+        public string BaseCoreNumber { get; set; }
+        public string ProductNumber { get; set; }
+        public string CoreWeightPerCavityOrFamilySet { get; set; }
+        public string Box { get; set; }
+        public string CoresPerFamily { get; set; }
+        public string MachineType { get; set; }
+        public string ActiveStatus { get; set; }
+
+
+                
+
+        
+
     }
 
     public class ProcessCard
@@ -104,11 +125,12 @@ namespace WebDashboardv2.Model
 
         public virtual ICollection<DataPoint> DataPoints { get; set; }
 
+        private int dataPointCount;
         [NotMapped]
         public ICollection<DataPoint> CurrentRevision {
             get
             {
-                if (currentRevision == null)
+                if (currentRevision == null || dataPointCount != DataPoints.Count())
                 {
                     var p = DataPoints.OrderByDescending(x => x.ApprovedDate);
                     var a = DataPoints.Select(x => x.Key).Distinct();
@@ -119,6 +141,7 @@ namespace WebDashboardv2.Model
                     }
 
                     currentRevision = result.OrderByDescending(x => x.Type).ThenBy(y => y.Key).ToList();
+                    dataPointCount = DataPoints.Count();
                 }
                 return currentRevision;
             }
@@ -158,6 +181,7 @@ namespace WebDashboardv2.Model
         public DbSet<DataPoint> DataPoints { get; set; }
         public DbSet<ProcessCardKey> ProcessCardKeys { get; set; }
         public DbSet<BlisProductsView> BlisProductsView { get; set; }
+        public DbSet<BlisCoresView> BlisCoresView { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
