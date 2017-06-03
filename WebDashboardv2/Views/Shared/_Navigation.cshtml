@@ -8,6 +8,11 @@
         max-height: 48px;
         max-width: 48px;
     }
+
+    .details {
+        font-size: 10px;
+        padding-left: 25px;
+    }
 </style>
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
@@ -31,16 +36,21 @@
             </li>
 
             <li class="@Html.IsSelected(controller: "ProcessCards")">
-                <a asp-controller="ProcessCards" , asp-action="Index">
-                    <i class="fa fa-gears"></i>
-                    <span class="nav-label">Process Cards</span>
-                    <span class="fa arrow"></span>
+                <a asp-controller="ProcessCards" asp-action="Index">
+                    <div>
+                        <i class="fa fa-files-o"></i>
+                        <span class="nav-label">Process Cards</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        View or Manage Process Cards
+                    </div>
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "ProcessCards", cssClass: "in")">
-                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">Core Assembly</a></li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">Core Make</a></li>
                     <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="4">Core Assembly</a></li>
                     <li>
-                        <a asp-controller="ProcessCards", asp-action="Molding">
+                        <a asp-controller="ProcessCards" , asp-action="Molding">
                             <span class="nav-label">Molding</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -50,7 +60,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="ProcessCards", asp-action="Index">
+                        <a asp-controller="ProcessCards" , asp-action="Index">
                             <span class="nav-label">Melt</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -60,7 +70,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="ProcessCards", asp-action="Index">
+                        <a asp-controller="ProcessCards" , asp-action="Index">
                             <span class="nav-label">Cleaning</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -70,8 +80,114 @@
                         </ul>
                     </li>
                     <li>
-                        <a asp-controller="ProcessCards", asp-action="Index" asp-route-id="11">Finishing</a>
+                        <a asp-controller="ProcessCards" asp-action="Index" asp-route-id="11">Finishing</a>
                     </li>
+                    @if (UserAccess.CanAddProcessCards)
+                    {
+                        <li><a asp-controller="ProcessCards" asp-action="Add">Add New Process Card</a></li>
+                    }
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "QualityAlerts")">
+                <a asp-controller="QualityAlerts" asp-action="Index">
+                    <div>
+                        <i class="fa fa-exclamation-circle"></i>
+                        <span class="nav-label">Quality Alerts</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        Create, View, or Manage Quality Alert Records
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "QualityAlerts", cssClass: "in")">
+                    <li><a asp-controller="QualityAlerts" asp-action="CreateNew">Create New Alert</a></li>
+                    <li><a asp-controller="QualityAlerts" asp-action="ViewCurrent">Work With Quality Alerts</a></li>
+                    <li><a asp-controller="QualityAlerts" asp-action="ViewAll">Quality Alert Records</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "QualityConcerns")">
+                <a asp-controller="QualityConcerns" , asp-action="Index">
+                    <div>
+                        <i class="fa fa-question-circle"></i>
+                        <span class="nav-label">Quality Concerns</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        Create, View, or Manage Quality Concern Records
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "QualityConcerns", cssClass: "in")">
+                    <li><a asp-controller="QualityConcerns" asp-action="CreateNew">Add New Concern</a></li>
+                    <li><a asp-controller="QualityConcerns" asp-action="ViewOpen">Work With Open Concerns</a></li>
+                    <li><a asp-controller="QualityConcerns" asp-action="ViewAll">Quality Concern Records</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "SampleManager")">
+                <a asp-controller="SampleManager" , asp-action="Index">
+                    <div>
+                        <i class="fa fa-gears"></i>
+                        <span class="nav-label">Sample Manager</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        Create, View, Or Manaage Sample Travellers
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "SampleManager", cssClass: "in")">
+                    <li><a asp-controller="SampleManager" asp-action="CreateNew">Create New Traveller</a></li>
+                    <li><a asp-controller="SampleManager" asp-action="OpenTraveller" asp-route-id="0">Work on Current Traveller</a></li>
+                    <li><a asp-controller="SampleManager" asp-action="ViewAll">Sample Records</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "MaterialCertification")">
+                <a asp-controller="MaterialCertification" , asp-action="Index">
+                    <div>
+                        <i class="fa fa-info-circle"></i>
+                        <span class="nav-label">Material Certification</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        Create, View, and Manange Product Material Certification Records
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "MaterialCertification", cssClass: "in")">
+                    <li><a asp-controller="MaterialCertification" asp-action="CreateNew">Generate Certification</a></li>
+                    <li><a asp-controller="MaterialCertification" asp-action="AddResults">Add Labratory Test Results</a></li>
+                    <li><a asp-controller="MaterialCertification" asp-action="ViewAll">Certification Records</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "BrinellRecords")">
+                <a asp-controller="BrinellRecords" , asp-action="Index">
+                    <div>
+                        <i class="fa fa-info-circle"></i>
+                        <span class="nav-label">Brinell Records</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        View and Manange Brinell Records
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "BrinellRecords", cssClass: "in")">
+                    <li><a asp-controller="BrinellRecords" asp-action="ViewAll">View HBW Records</a></li>
+                    <li><a asp-controller="BrinellRecords" asp-action="FixRecordErrors">Fix HBW Record Errors</a></li>
+                    <li><a asp-controller="BrinellRecords" asp-action="ViewScopeChecks">View Scope Checks</a></li>
+                </ul>
+            </li>
+            <li class="@Html.IsSelected(controller: "LayeredProcessAuditing")">
+                <a asp-controller="LayeredProcessAuditing" , asp-action="Index">
+                    <div>
+                        <i class="fa fa-users"></i>
+                        <span class="nav-label">LPA Manager</span>
+                        <span class="fa arrow"></span>
+                    </div>
+                    <div class="details">
+                        Create, View, Or Manage Layered Process Audit Documentation
+                    </div>
+                </a>
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "LayeredProcessAuditing", cssClass: "in")">
+                    <li><a asp-controller="LayeredProcessAuditing" asp-action="CreateNew">Generate LPA Package</a></li>
+                    <li><a asp-controller="LayeredProcessAuditing" asp-action="AddNewQuestion">Add New Audit Question</a></li>
+                    <li><a asp-controller="LayeredProcessAuditing" asp-action="ViewAll">LPA Records</a></li>
                 </ul>
             </li>
         </ul>

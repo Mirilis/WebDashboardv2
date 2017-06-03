@@ -5,7 +5,15 @@
         </div>
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome to New Castle Documents Dashboard, @User.Identity.Name!</span>
+                @if (User.Identity.Name != null)
+                {
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome to New Castle Web Application Dashboard, @User.Identity.Name!</span>
+                }
+                else
+                {
+                    <span class="m-r-sm text-muted welcome-message" data-i18n="topnav.welcometext">Welcome to New Castle Web Application Dashboard!</span>
+                }
+
             </li>
                    </ul>
     </nav>

@@ -12,7 +12,7 @@
 /* jshint nomen:false */
 /* global define, require, window */
 
-;(function (factory) {
+; (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
@@ -40,7 +40,6 @@
     // The File Upload Processing plugin extends the fileupload widget
     // with file processing functionality:
     $.widget('blueimp.fileupload', $.blueimp.fileupload, {
-
         options: {
             // The list of processing actions:
             processQueue: [
@@ -79,7 +78,7 @@
                 var func = function (data) {
                     if (originalData.errorThrown) {
                         return $.Deferred()
-                                .rejectWith(that, [originalData]).promise();
+                            .rejectWith(that, [originalData]).promise();
                     }
                     return that.processActions[settings.action].call(
                         that,
@@ -113,7 +112,7 @@
                     prefix = this.prefix === true ? action : this.prefix;
                 $.each(this, function (key, value) {
                     if ($.type(value) === 'string' &&
-                            value.charAt(0) === '@') {
+                        value.charAt(0) === '@') {
                         settings[key] = options[
                             value.slice(1) || (prefix ? prefix +
                                 key.charAt(0).toUpperCase() + key.slice(1) : key)
@@ -121,7 +120,6 @@
                     } else {
                         settings[key] = value;
                     }
-
                 });
                 processQueue.push(settings);
             });
@@ -148,7 +146,7 @@
                         func = function () {
                             if (data.errorThrown) {
                                 return $.Deferred()
-                                        .rejectWith(that, [data]).promise();
+                                    .rejectWith(that, [data]).promise();
                             }
                             return that._processFile(opts, data);
                         };
@@ -172,7 +170,5 @@
             this._processingQueue = $.Deferred().resolveWith(this)
                 .promise();
         }
-
     });
-
 }));

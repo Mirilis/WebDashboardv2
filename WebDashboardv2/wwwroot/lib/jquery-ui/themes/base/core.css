@@ -57,14 +57,12 @@
 	z-index: 100;
 }
 
-
 /* Interaction Cues
 ----------------------------------*/
 .ui-state-disabled {
 	cursor: default !important;
 	pointer-events: none;
 }
-
 
 /* Icons
 ----------------------------------*/

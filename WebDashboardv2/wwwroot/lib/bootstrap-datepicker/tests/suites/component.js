@@ -1,34 +1,33 @@
-module('Component', {
-    setup: function(){
-        this.component = $('<div class="input-append date" id="datepicker">'+
-                                '<input size="16" type="text" value="12-02-2012" readonly>'+
-                                '<span class="add-on"><i class="icon-th"></i></span>'+
-                            '</div>')
-                        .appendTo('#qunit-fixture')
-                        .datepicker({format: "dd-mm-yyyy"});
+﻿module('Component', {
+    setup: function () {
+        this.component = $('<div class="input-append date" id="datepicker">' +
+            '<input size="16" type="text" value="12-02-2012" readonly>' +
+            '<span class="add-on"><i class="icon-th"></i></span>' +
+            '</div>')
+            .appendTo('#qunit-fixture')
+            .datepicker({ format: "dd-mm-yyyy" });
         this.input = this.component.find('input');
         this.addon = this.component.find('.add-on');
         this.dp = this.component.data('datepicker')
         this.picker = this.dp.picker;
     },
-    teardown: function(){
+    teardown: function () {
         this.picker.remove();
     }
 });
 
-
-test('Component gets date/viewDate from input value', function(){
+test('Component gets date/viewDate from input value', function () {
     datesEqual(this.dp.getUTCDate(), UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
 });
 
-test('Activation by component', function(){
+test('Activation by component', function () {
     ok(!this.picker.is(':visible'));
     this.addon.click();
     ok(this.picker.is(':visible'));
 });
 
-test('simple keyboard nav test', function(){
+test('simple keyboard nav test', function () {
     var target;
 
     // Keyboard nav only works with non-readonly inputs
@@ -80,21 +79,21 @@ test('simple keyboard nav test', function(){
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
 
-test('setValue', function(){
+test('setValue', function () {
     this.dp.dates.replace(UTCDate(2012, 2, 13));
     this.dp.setValue();
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
     equal(this.input.val(), '13-03-2012');
 });
 
-test('update', function(){
+test('update', function () {
     this.input.val('13-03-2012');
     this.dp.update();
     equal(this.dp.dates.length, 1);
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 13));
 });
 
-test('Navigating to/from decade view', function(){
+test('Navigating to/from decade view', function () {
     var target;
 
     this.addon.click();
@@ -138,7 +137,7 @@ test('Navigating to/from decade view', function(){
     datesEqual(this.dp.dates[0], UTCDate(2012, 2, 31));
 });
 
-test('Selecting date resets viewDate and date', function(){
+test('Selecting date resets viewDate and date', function () {
     var target;
 
     this.addon.click();
@@ -160,7 +159,7 @@ test('Selecting date resets viewDate and date', function(){
     equal(target.text(), '29'); // Should be Jan 29
 });
 
-test('"remove" removes associated HTML', function(){
+test('"remove" removes associated HTML', function () {
     var datepickerDivSelector = '.datepicker';
 
     $('#datepicker').datepicker('show');
@@ -171,9 +170,9 @@ test('"remove" removes associated HTML', function(){
     equal($(datepickerDivSelector).length, 0);//hidden HTML should be gone
 });
 
-test('Does not block events', function(){
+test('Does not block events', function () {
     var clicks = 0;
-    function handler(){
+    function handler() {
         clicks++;
     }
     $('#qunit-fixture').on('click', '.add-on', handler);
@@ -182,8 +181,7 @@ test('Does not block events', function(){
     $('#qunit-fixture').off('click', '.add-on', handler);
 });
 
-
-test('date and viewDate must be between startDate and endDate when setStartDate called', function() {
+test('date and viewDate must be between startDate and endDate when setStartDate called', function () {
     this.dp.setDate(new Date(2013, 1, 1));
     datesEqual(this.dp.dates[0], UTCDate(2013, 1, 1));
     datesEqual(this.dp.viewDate, UTCDate(2013, 1, 1));
@@ -192,7 +190,7 @@ test('date and viewDate must be between startDate and endDate when setStartDate 
     equal(this.dp.dates.length, 0);
 });
 
-test('date and viewDate must be between startDate and endDate when setEndDate called', function() {
+test('date and viewDate must be between startDate and endDate when setEndDate called', function () {
     this.dp.setDate(new Date(2013, 11, 1));
     datesEqual(this.dp.dates[0], UTCDate(2013, 11, 1));
     datesEqual(this.dp.viewDate, UTCDate(2013, 11, 1));

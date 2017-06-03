@@ -1,144 +1,137 @@
 /*! Idle Timer - v0.9.2 - 2013-08-04
 * https://github.com/mikesherov/jquery-idletimer
 * Copyright (c) 2013 Paul Irish; Licensed MIT */
-( function( $ ) {
+(function ($) {
+    $.idleTimer = function (firstParam, elem, opts) {
+        // defaults that are to be stored as instance props on the elem
+        opts = $.extend({
+            startImmediately: true,   //starts a timeout as soon as the timer is set up
+            idle: false,              //indicates if the user is idle
+            enabled: true,            //indicates if the idle timer is enabled
+            timeout: 30000,           //the amount of time (ms) before the user is considered idle
+            events: "mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove" // activity is one of these events
+        }, opts);
 
-$.idleTimer = function( firstParam, elem, opts ) {
+        elem = elem || document;
 
-	// defaults that are to be stored as instance props on the elem
-	opts = $.extend( {
-		startImmediately: true,   //starts a timeout as soon as the timer is set up
-		idle: false,              //indicates if the user is idle
-		enabled: true,            //indicates if the idle timer is enabled
-		timeout: 30000,           //the amount of time (ms) before the user is considered idle
-		events: "mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove" // activity is one of these events
-	}, opts );
+        var jqElem = $(elem),
+            obj = jqElem.data("idleTimerObj") || {},
 
+            /* (intentionally not documented)
+             * Toggles the idle state and fires an appropriate event.
+             * @return {void}
+             */
+            toggleIdleState = function (myelem) {
+                // curse you, mozilla setTimeout lateness bug!
+                if (typeof myelem === "number") {
+                    myelem = undefined;
+                }
 
-	elem = elem || document;
+                var obj = $.data(myelem || elem, "idleTimerObj");
 
-	var jqElem = $( elem ),
-		obj = jqElem.data("idleTimerObj") || {},
+                //toggle the state
+                obj.idle = !obj.idle;
 
-		/* (intentionally not documented)
-		 * Toggles the idle state and fires an appropriate event.
-		 * @return {void}
-		 */
-		toggleIdleState = function( myelem ) {
+                // reset timeout
+                var elapsed = (+new Date()) - obj.olddate;
+                obj.olddate = +new Date();
 
-			// curse you, mozilla setTimeout lateness bug!
-			if ( typeof myelem === "number" ) {
-				myelem = undefined;
-			}
+                // handle Chrome always triggering idle after js alert or comfirm popup
+                if (obj.idle && (elapsed < opts.timeout)) {
+                    obj.idle = false;
+                    clearTimeout($.idleTimer.tId);
+                    if (opts.enabled) {
+                        $.idleTimer.tId = setTimeout(toggleIdleState, opts.timeout);
+                    }
+                    return;
+                }
 
-			var obj = $.data( myelem || elem, "idleTimerObj" );
+                // create a custom event, but first, store the new state on the element
+                // and then append that string to a namespace
+                var event = $.Event($.data(elem, "idleTimer", obj.idle ? "idle" : "active") + ".idleTimer");
+                $(elem).trigger(event);
+            },
 
-			//toggle the state
-			obj.idle = !obj.idle;
+            /**
+             * Stops the idle timer. This removes appropriate event handlers
+             * and cancels any pending timeouts.
+             * @return {void}
+             * @method stop
+             * @static
+             */
+            stop = function (jqElem) {
+                var obj = jqElem.data("idleTimerObj") || {};
 
-			// reset timeout
-			var elapsed = ( +new Date() ) - obj.olddate;
-			obj.olddate = +new Date();
+                //set to disabled
+                obj.enabled = false;
 
-			// handle Chrome always triggering idle after js alert or comfirm popup
-			if ( obj.idle && ( elapsed < opts.timeout ) ) {
-				obj.idle = false;
-				clearTimeout( $.idleTimer.tId );
-				if ( opts.enabled ) {
-					$.idleTimer.tId = setTimeout( toggleIdleState, opts.timeout );
-				}
-				return;
-			}
+                //clear any pending timeouts
+                clearTimeout(obj.tId);
 
-			// create a custom event, but first, store the new state on the element
-			// and then append that string to a namespace
-			var event = $.Event( $.data( elem, "idleTimer", obj.idle ? "idle" : "active" ) + ".idleTimer" );
-			$( elem ).trigger( event );
-		},
+                //detach the event handlers
+                jqElem.off(".idleTimer");
+            };
 
-		/**
-		 * Stops the idle timer. This removes appropriate event handlers
-		 * and cancels any pending timeouts.
-		 * @return {void}
-		 * @method stop
-		 * @static
-		 */
-		stop = function( jqElem ) {
+        obj.olddate = obj.olddate || +new Date();
 
-			var obj = jqElem.data("idleTimerObj") || {};
+        if (typeof firstParam === "number") {
+            opts.timeout = firstParam;
+        } else if (firstParam === "destroy") {
+            stop(jqElem);
+            return this;
+        } else if (firstParam === "getElapsedTime") {
+            return (+new Date()) - obj.olddate;
+        }
 
-			//set to disabled
-			obj.enabled = false;
+        /* (intentionally not documented)
+         * Handles a user event indicating that the user isn't idle.
+         * @param {Event} event A DOM2-normalized event object.
+         * @return {void}
+         */
+        jqElem.on($.trim((opts.events + " ").split(" ").join(".idleTimer ")), function () {
+            var obj = $.data(this, "idleTimerObj");
 
-			//clear any pending timeouts
-			clearTimeout( obj.tId );
+            //clear any existing timeout
+            clearTimeout(obj.tId);
 
-			//detach the event handlers
-			jqElem.off(".idleTimer");
-		};
+            //if the idle timer is enabled
+            if (obj.enabled) {
+                //if it's idle, that means the user is no longer idle
+                if (obj.idle) {
+                    toggleIdleState(this);
+                }
 
-	obj.olddate = obj.olddate || +new Date();
+                //set a new timeout
+                obj.tId = setTimeout(toggleIdleState, obj.timeout);
+            }
+        });
 
-	if ( typeof firstParam === "number" ) {
-		opts.timeout = firstParam;
-	} else if ( firstParam === "destroy" ) {
-		stop( jqElem );
-		return this;
-	} else if ( firstParam === "getElapsedTime" ) {
-		return ( +new Date() ) - obj.olddate;
-	}
+        obj.idle = opts.idle;
+        obj.enabled = opts.enabled;
+        obj.timeout = opts.timeout;
 
+        //set a timeout to toggle state. May wish to omit this in some situations
+        if (opts.startImmediately) {
+            obj.tId = setTimeout(toggleIdleState, obj.timeout);
+        }
 
-	/* (intentionally not documented)
-	 * Handles a user event indicating that the user isn't idle.
-	 * @param {Event} event A DOM2-normalized event object.
-	 * @return {void}
-	 */
-	jqElem.on( $.trim( ( opts.events + " " ).split(" ").join(".idleTimer ") ), function() {
-		var obj = $.data( this, "idleTimerObj" );
+        // assume the user is active for the first x seconds.
+        jqElem.data("idleTimer", "active");
 
-		//clear any existing timeout
-		clearTimeout( obj.tId );
+        // store our instance on the object
+        jqElem.data("idleTimerObj", obj);
+    };
 
-		//if the idle timer is enabled
-		if ( obj.enabled ){
-			//if it's idle, that means the user is no longer idle
-			if ( obj.idle ){
-				toggleIdleState( this );
-			}
+    $.fn.idleTimer = function (firstParam, opts) {
+        // Allow omission of opts for backward compatibility
+        if (!opts) {
+            opts = {};
+        }
 
-			//set a new timeout
-			obj.tId = setTimeout( toggleIdleState, obj.timeout );
-		}
-	});
+        if (this[0]) {
+            return $.idleTimer(firstParam, this[0], opts);
+        }
 
-	obj.idle = opts.idle;
-	obj.enabled = opts.enabled;
-	obj.timeout = opts.timeout;
-
-	//set a timeout to toggle state. May wish to omit this in some situations
-	if ( opts.startImmediately ) {
-		obj.tId = setTimeout( toggleIdleState, obj.timeout );
-	}
-
-	// assume the user is active for the first x seconds.
-	jqElem.data( "idleTimer", "active" );
-
-	// store our instance on the object
-	jqElem.data( "idleTimerObj", obj );
-};
-
-$.fn.idleTimer = function( firstParam, opts ) {
-	// Allow omission of opts for backward compatibility
-	if ( !opts ) {
-		opts = {};
-	}
-
-	if ( this[0] ){
-		return $.idleTimer( firstParam, this[0], opts );
-	}
-
-	return this;
-};
-
-})( jQuery );
+        return this;
+    };
+})(jQuery);

@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib_bower\**" />
+    <Content Remove="wwwroot\lib_bower\**" />
+    <EmbeddedResource Remove="wwwroot\lib_bower\**" />
+    <None Remove="wwwroot\lib_bower\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\lib\footable\.bower.json" />
     <Content Include="wwwroot\lib\footable\.csslintrc" />
     <Content Include="wwwroot\lib\footable\.gitattributes" />
@@ -136,7 +143,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\lib_bower\" />
+    <Folder Include="Views\MaterialCertification\" />
+    <Folder Include="Views\BrinellRecords\" />
+    <Folder Include="Views\LayeredProcessAuditing\" />
+    <Folder Include="Views\SampleManager\" />
   </ItemGroup>
 
 </Project>

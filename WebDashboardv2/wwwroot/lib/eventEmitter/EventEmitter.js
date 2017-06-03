@@ -5,7 +5,7 @@
  * @preserve
  */
 
-;(function () {
+; (function () {
     'use strict';
 
     /**
@@ -14,7 +14,7 @@
      *
      * @class EventEmitter Manages event registering and emitting.
      */
-    function EventEmitter() {}
+    function EventEmitter() { }
 
     // Shortcuts to improve speed and size
     var proto = EventEmitter.prototype;
@@ -465,7 +465,7 @@
             return EventEmitter;
         });
     }
-    else if (typeof module === 'object' && module.exports){
+    else if (typeof module === 'object' && module.exports) {
         module.exports = EventEmitter;
     }
     else {

@@ -7,3 +7,12 @@ C:\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2
 C:\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.AssemblyInfo.cs
 C:\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.dll
 C:\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.pdb
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2.deps.json
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2.runtimeconfig.json
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2.runtimeconfig.dev.json
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2.dll
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\bin\Debug\netcoreapp1.1\WebDashboardv2.pdb
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.csprojResolveAssemblyReference.cache
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.AssemblyInfo.cs
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.dll
+C:\Users\Mirilis\documents\visual studio 2017\Projects\WebDashboardv2\WebDashboardv2\obj\Debug\netcoreapp1.1\WebDashboardv2.pdb

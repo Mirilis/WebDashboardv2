@@ -14,7 +14,7 @@
         "css/fonts/footable.ttf",
         "css/fonts/footable.woff"
     ],
-    
+
     "dependencies": {
         "jquery": ">=1.4.4"
     },

@@ -462,7 +462,6 @@ var render$1 = {
     $cropper.removeClass(hidden);
   },
 
-
   // Canvas (image wrapper)
   initCanvas: function initCanvas() {
     var self = this;
@@ -1774,12 +1773,6 @@ var createClass = function () {
   };
 }();
 
-
-
-
-
-
-
 var get = function get(object, property, receiver) {
   if (object === null) object = Function.prototype;
   var desc = Object.getOwnPropertyDescriptor(object, property);
@@ -1805,22 +1798,6 @@ var get = function get(object, property, receiver) {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var set = function set(object, property, value, receiver) {
   var desc = Object.getOwnPropertyDescriptor(object, property);
 
@@ -1842,20 +1819,6 @@ var set = function set(object, property, value, receiver) {
 
   return value;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 var toConsumableArray = function (arr) {
   if (Array.isArray(arr)) {
@@ -1913,7 +1876,6 @@ var methods = {
     self.setCropBoxData(self.initialCropBox);
   },
 
-
   // Reset the image and crop box to their initial states
   reset: function reset() {
     var self = this;
@@ -1932,7 +1894,6 @@ var methods = {
       self.renderCropBox();
     }
   },
-
 
   // Clear the crop box
   clear: function clear() {
@@ -1960,7 +1921,6 @@ var methods = {
     self.$dragBox.removeClass('cropper-modal');
     self.$cropBox.addClass('cropper-hidden');
   },
-
 
   /**
    * Replace the image's src and rebuild the cropper
@@ -1995,7 +1955,6 @@ var methods = {
     }
   },
 
-
   // Enable (unfreeze) the cropper
   enable: function enable() {
     var self = this;
@@ -2006,7 +1965,6 @@ var methods = {
     }
   },
 
-
   // Disable (freeze) the cropper
   disable: function disable() {
     var self = this;
@@ -2016,7 +1974,6 @@ var methods = {
       self.$cropper.addClass('cropper-disabled');
     }
   },
-
 
   // Destroy the cropper and remove the instance from the image
   destroy: function destroy() {
@@ -2039,7 +1996,6 @@ var methods = {
     $this.removeData('cropper');
   },
 
-
   /**
    * Move the canvas with relative offsets
    *
@@ -2052,7 +2008,6 @@ var methods = {
 
     self.moveTo(isUndefined(offsetX) ? offsetX : canvas.left + Number(offsetX), isUndefined(offsetY) ? offsetY : canvas.top + Number(offsetY));
   },
-
 
   /**
    * Move the canvas to an absolute point
@@ -2090,7 +2045,6 @@ var methods = {
     }
   },
 
-
   /**
    * Zoom the canvas with a relative ratio
    *
@@ -2111,7 +2065,6 @@ var methods = {
 
     self.zoomTo(canvas.width * ratio / canvas.naturalWidth, _event);
   },
-
 
   /**
    * Zoom the canvas to an absolute ratio
@@ -2170,7 +2123,6 @@ var methods = {
     }
   },
 
-
   /**
    * Rotate the canvas with a relative degree
    *
@@ -2181,7 +2133,6 @@ var methods = {
 
     self.rotateTo((self.image.rotate || 0) + Number(degree));
   },
-
 
   /**
    * Rotate the canvas to an absolute degree
@@ -2200,7 +2151,6 @@ var methods = {
       self.renderCanvas(true);
     }
   },
-
 
   /**
    * Scale the image
@@ -2239,7 +2189,6 @@ var methods = {
     }
   },
 
-
   /**
    * Scale the abscissa of the image
    *
@@ -2252,7 +2201,6 @@ var methods = {
     self.scale(_scaleX, isNumber(scaleY) ? scaleY : 1);
   },
 
-
   /**
    * Scale the ordinate of the image
    *
@@ -2264,7 +2212,6 @@ var methods = {
 
     self.scale(isNumber(scaleX) ? scaleX : 1, _scaleY);
   },
-
 
   /**
    * Get the cropped area position and size data (base on the original image)
@@ -2315,7 +2262,6 @@ var methods = {
 
     return data;
   },
-
 
   /**
    * Set the cropped area position and size with new data
@@ -2384,7 +2330,6 @@ var methods = {
     }
   },
 
-
   /**
    * Get the container size data
    *
@@ -2394,7 +2339,6 @@ var methods = {
     return this.ready ? this.container : {};
   },
 
-
   /**
    * Get the image position and size data
    *
@@ -2403,7 +2347,6 @@ var methods = {
   getImageData: function getImageData() {
     return this.loaded ? this.image : {};
   },
-
 
   /**
    * Get the canvas position and size data
@@ -2423,7 +2366,6 @@ var methods = {
 
     return data;
   },
-
 
   /**
    * Set the canvas position and size with new data
@@ -2460,7 +2402,6 @@ var methods = {
     }
   },
 
-
   /**
    * Get the crop box position and size data
    *
@@ -2477,7 +2418,6 @@ var methods = {
       height: cropBox.height
     } : {};
   },
-
 
   /**
    * Set the crop box position and size with new data
@@ -2525,7 +2465,6 @@ var methods = {
       self.renderCropBox();
     }
   },
-
 
   /**
    * Get a canvas drawn the cropped image
@@ -2650,7 +2589,6 @@ var methods = {
     return canvas;
   },
 
-
   /**
    * Change the aspect ratio of the crop box
    *
@@ -2673,7 +2611,6 @@ var methods = {
       }
     }
   },
-
 
   /**
    * Change the drag mode
@@ -2758,7 +2695,6 @@ var Cropper = function () {
     }
 
     // A shortcut for triggering custom events
-
   }, {
     key: 'trigger',
     value: function trigger(type, data) {
@@ -2831,7 +2767,6 @@ var Cropper = function () {
         self.url = arrayBufferToDataURL(arrayBuffer);
 
         switch (orientation) {
-
           // flip horizontal
           case 2:
             scaleX = -1;

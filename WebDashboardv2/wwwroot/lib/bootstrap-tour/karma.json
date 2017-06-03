@@ -1,4 +1,4 @@
-{
+﻿{
   "frameworks": ["jasmine"],
   "files": [
     "bower_components/jquery/dist/jquery.js",

@@ -1,4 +1,4 @@
-/* ===================================================
+﻿/* ===================================================
  * bootstrap-markdown.js v2.9.0
  * http://github.com/toopay/bootstrap-markdown
  * ===================================================
@@ -18,7 +18,6 @@
  * ========================================================== */
 
 !function ($) {
-
   "use strict"; // jshint ;_;
 
   /* MARKDOWN CLASS DEFINITION
@@ -27,8 +26,8 @@
   var Markdown = function (element, options) {
     // @TODO : remove this BC on next major release
     // @see : https://github.com/toopay/bootstrap-markdown/issues/109
-    var opts = ['autofocus', 'savable', 'hideable', 'width', 
-      'height', 'resize', 'iconlibrary', 'language', 
+    var opts = ['autofocus', 'savable', 'hideable', 'width',
+      'height', 'resize', 'iconlibrary', 'language',
       'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons'];
     $.each(opts,function(_, opt){
       if (typeof $(element).data(opt) !== 'undefined') {
@@ -56,7 +55,6 @@
   };
 
   Markdown.prototype = {
-
     constructor: Markdown
 
   , __alterButtons: function(name,alter) {
@@ -337,8 +335,6 @@
                               + '"><i class="icon icon-white icon-ok"></i> '
                               + this.__localize('Save')
                               + '</button>');
-
-
         }
 
         footer = typeof options.footer === 'function' ? options.footer(this) : options.footer;
@@ -407,7 +403,6 @@
         } else if (options.initialstate === 'fullscreen' && options.fullscreen.enable) {
           this.setFullscreen(true);
         }
-
       } else {
         this.$editor.show();
       }
@@ -472,7 +467,7 @@
         // @see https://github.com/toopay/bootstrap-markdown/issues/170
         return this;
       }
-      
+
       // Give flag that tell the editor enter preview mode
       this.$isPreview = true;
       // Disable all buttons
@@ -572,7 +567,6 @@
   }
 
   , getSelection: function() {
-
       var e = this.$textarea[0];
 
       return (
@@ -588,11 +582,9 @@
           }
 
       )();
-
     }
 
   , setSelection: function(start,end) {
-
       var e = this.$textarea[0];
 
       return (
@@ -609,11 +601,9 @@
           }
 
       )();
-
     }
 
   , replaceSelection: function(text) {
-
       var e = this.$textarea[0];
 
       return (
@@ -874,7 +864,6 @@
 
       return this;
     }
-
   };
 
  /* MARKDOWN PLUGIN DEFINITION
@@ -1123,7 +1112,6 @@
           title: 'Ordered List',
           icon: { glyph: 'glyphicon glyphicon-th-list', fa: 'fa fa-list-ol', 'fa-3': 'icon-list-ol' },
           callback: function(e) {
-
             // Prepend/Give - surround the selection
             var chunk, cursor, selected = e.getSelection(), content = e.getContent();
 
@@ -1307,7 +1295,6 @@
 
   $.fn.markdown.Constructor = Markdown;
 
-
  /* MARKDOWN NO CONFLICT
   * ==================== */
 
@@ -1358,5 +1345,4 @@
         initMarkdown($(this));
       })
     });
-
 }(window.jQuery);

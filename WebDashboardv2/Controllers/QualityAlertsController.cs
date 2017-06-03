@@ -1,45 +1,47 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using WebDashboardv2.Model;
-using System.IO;
-using Microsoft.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
-using System.Net.Http;
-using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebDashboardv2.Controllers
 {
     public class QualityAlertsController : Controller
     {
-        private readonly Model.IProcessCardsModel ProcessCards;
-        private readonly Model.IUserAccessModel UserAccess;
+        private readonly Model.IProductsModel products;
+        private readonly Model.IQualityAlertsModel qualityAlerts;
+        private readonly Model.IUserAccessModel userAccess;
         private readonly IHostingEnvironment appEnvironment;
 
-        public QualityAlertsController(Model.IProcessCardsModel processCards, Model.IUserAccessModel userAccess, IHostingEnvironment appEnvironment)
+        public QualityAlertsController(Model.IProductsModel products, Model.IUserAccessModel userAccess, IHostingEnvironment appEnvironment, Model.IQualityAlertsModel qualityAlerts)
         {
-            this.ProcessCards = processCards;
-            this.UserAccess = userAccess;
+            this.products = products;
+            this.userAccess = userAccess;
             this.appEnvironment = appEnvironment;
+            this.qualityAlerts = qualityAlerts;
         }
 
         public IActionResult Index()
         {
-            var pcc = ProcessCardClass.MoldingOsborn;
-            ViewData["ProcessCards"] = ProcessCards.DepartmentalCards(pcc);
-            ViewData["CardClass"] = pcc.ToString().ToSentenceCase();
-            ViewData["UserAccess"] = UserAccess.IsAuthorizedToEdit(pcc);
             return View();
         }
-        public IActionResult Product(string Product)
+
+        public IActionResult ViewForProduct(string Product)
         {
-            var pcc = ProcessCardClass.MoldingOsborn;
-            ViewData["ProcessCards"] = ProcessCards.DepartmentalCards(pcc);
-            ViewData["CardClass"] = pcc.ToString().ToSentenceCase();
-            ViewData["UserAccess"] = UserAccess.IsAuthorizedToEdit(pcc);
+            return PartialView("_QualityAlertsForProduct");
+        }
+
+        public IActionResult CreateNew()
+        {
+            return View();
+        }
+
+        public IActionResult ViewCurrent()
+        {
+            return View();
+        }
+
+        public IActionResult ViewAll()
+        {
+            ViewData["Products"] = products;
+            ViewData["Alerts"] = qualityAlerts;
             return View();
         }
     }

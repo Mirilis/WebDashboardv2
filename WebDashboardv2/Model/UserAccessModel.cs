@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-
 
 namespace WebDashboardv2.Model
 {
-    public interface IUserAccessModel
-    {
-        string Name { get;  }
-        string Email { get; }
-        string Title { get; }
-        bool IsAuthorizedToEdit(ProcessCardClass c);
-        bool Exists { get; }
-    }
     public class UserAccessModel : IUserAccessModel
     {
         private readonly ProcessCardContext context;
@@ -24,13 +11,14 @@ namespace WebDashboardv2.Model
         private Approver currentUser;
 
         public bool Exists { get; private set; }
-        
+
         public UserAccessModel(ProcessCardContext context, IHttpContextAccessor contextaccessor)
         {
             this.context = context;
             this.contextAccessor = contextaccessor;
             UpdateUser(contextAccessor.HttpContext.User.Identity.Name);
         }
+
         private void UpdateUser(string currUsr)
         {
             if (currUsr == null)
@@ -51,9 +39,11 @@ namespace WebDashboardv2.Model
             }
         }
 
-        public string Name { get =>  currentUser.Name; } 
+        public string Name { get => currentUser.Name; }
         public string Email { get => currentUser.Email; }
         public string Title { get => currentUser.Title; }
+
+        public bool CanAddProcessCards => false;
 
         public bool IsAuthorizedToEdit(ProcessCardClass c)
         {
