@@ -8,5 +8,6 @@
         bool IsAuthorizedToEdit(ProcessCardClass c);
         bool Exists { get; }
         bool CanAddProcessCards { get; }
+        bool CanCreateQualityAlerts { get; }
     }
 }

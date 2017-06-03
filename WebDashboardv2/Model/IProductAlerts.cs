@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WebDashboardv2.Model
 {
     public interface IProductAlerts
     {
+        int ID { get; set; }
         string Product { get; set; }
         string Title { get; set; }
         string Customer { get; set; }
@@ -17,5 +19,8 @@ namespace WebDashboardv2.Model
         string Image3Path { get; set; }
         string Image4Path { get; set; }
         string TemplateTypePath { get; set; }
+        int RepeatCount { get; set; }
+        string RootCause { get; set; }
+        List<string> AffectedDepartments { get; set; }
     }
 }

@@ -1,5 +1,16 @@
-using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WebDashboardv2.Model;
+using System.IO;
+using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.Net.Http;
+using System.Net;
+
 
 namespace WebDashboardv2.Controllers
 {
@@ -23,14 +34,25 @@ namespace WebDashboardv2.Controllers
             return View();
         }
 
-        public IActionResult ViewForProduct(string Product)
+        public IActionResult Partial90d(string Product)
         {
-            return PartialView("_QualityAlertsForProduct");
+            ViewData["User"] = userAccess;
+            ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product == Product && x.AlertDate >= DateTime.Now.AddDays(-90)).ToList();
+            ViewData["Header"] = string.Format("Alerts for {0}, Last 90 Days", Product);
+                return PartialView("_QualityAlertsByProduct");
+        }
+
+        public IActionResult PartialAllTime(string Product)
+        {
+            ViewData["User"] = userAccess;
+            ViewData["Header"] = string.Format("Alerts for {0}, All Alerts", Product);
+            ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product == Product).ToList();
+            return PartialView("_QualityAlertsByProduct");
         }
 
         public IActionResult CreateNew()
         {
-            return View();
+            return Create(0);
         }
 
         public IActionResult ViewCurrent()
@@ -44,5 +66,17 @@ namespace WebDashboardv2.Controllers
             ViewData["Alerts"] = qualityAlerts;
             return View();
         }
+
+        public IActionResult CreateRepeatAlert(int Id)
+        {
+            
+            return Create(Id);
+        }
+
+        private IActionResult Create(int Id)
+        {
+            return View("Create");
+        }
+        
     }
 }

@@ -14,8 +14,8 @@
     "jquery-idletimer": "~1.0.1",
     "jQuery.dotdotdot": "~1.7.4",
     "bootstrap-tour": "~0.10.2",
-    "jquery-file-upload": "9.18.0"
-
+    "jquery-file-upload": "9.18.0",
+    "chosen": "v1.7.0"
   },
   "resolutions": {
     "jquery": ">=1.6.2"

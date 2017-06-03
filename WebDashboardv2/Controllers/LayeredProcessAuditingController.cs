@@ -8,25 +8,7 @@ namespace WebDashboardv2.Controllers
 {
 
     //enum for loading LPA documents by department
-    public enum Departments
-    {
-        Core,
-        Mold,
-        Melt,
-        Cleaning,
-        Finishing,
-        Maintenance,
-        IndustrialEngineering,
-        Technical,
-        Quality,
-        FoundryEngineering,
-        PlantEngineering,
-        Environmental,
-        ProductionControl,
-        HumanResources,
-        Safety,
-        Training
-    }
+    
 
 
     public class LayeredProcessAuditingController : Controller

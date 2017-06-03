@@ -45,6 +45,8 @@ namespace WebDashboardv2.Model
 
         public bool CanAddProcessCards => false;
 
+        public bool CanCreateQualityAlerts => true;
+
         public bool IsAuthorizedToEdit(ProcessCardClass c)
         {
             var p = c.ToString();
