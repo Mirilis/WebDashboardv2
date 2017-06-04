@@ -26,7 +26,7 @@
                 <input type="text" class="form-control input-sm m-b-xs" id="filter"
                        placeholder="Search Process Cards">
 
-                <table class="footable table toggle-circle table-stripped" data-filter-min="0" data-page-size="25" data-filter=#filter>
+                <table class="footable table toggle-circle table-stripped processCards" data-filter-min="0" data-page-size="25" data-filter=#filter>
                     <thead>
                         <tr>
                             <th width="125">Product</th>
@@ -37,7 +37,7 @@
                             @if (bool.Parse(CanEdit))
                             {
                                 <th width="50" align="center">EDIT</th>
-                                                <th data-hide="all"></th>
+                                <th data-hide="all"></th>
                                                 <th data-hide="all"></th>
                             }
 
@@ -51,27 +51,23 @@
                                 <td>@card.ProcessCardType</td>
                                 <td><a class="btn btn-primary btn-xs" href='@string.Format("http://ncwebtest:8001/api/pdf/{0}", @card.ID)'>View <i class="fa fa-file-pdf-o" /></a></td>
                                 <td>
-                                    <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@card.ProductName" id="@card.ProductName-90d" name="@card.ID-cardID" class="btn show90d btn-primary btn-xs">
-                                        Show 
+                                    <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@card.ProductName" id="@card.ProductName-90d" name="@card.ID-cardID" class="btn loadPartial btn-primary btn-xs">
+                                        Show
                                         <i class="fa fa-arrow-circle-down"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a asp-controller="QualityConcerns" asp-action="PartialConcerns" asp-route-product="@card.ProductName" id="@card.ProductName-concerns" name="@card.ID-cardID" class="btn show90d btn-primary btn-xs">
-                                        Show 
+                                    <a asp-controller="QualityConcerns" asp-action="PartialConcerns" asp-route-product="@card.ProductName" id="@card.ProductName-concerns" name="@card.ID-cardID" class="btn loadPartial btn-primary btn-xs">
+                                        Show
                                         <i class="fa fa-arrow-circle-down"></i>
                                     </a>
                                 </td>
                                 @if (bool.Parse(CanEdit))
                                 {
-                                    <td ><a id="@card.ID-edit" asp-controller="ProcessCards" asp-action="Edit" asp-route-id="@card.ID" class="btn btn-primary btn-xs edit-button">Edit <i class="fa fa-edit" ></i></a></td>
-                                                    <td>
-                                                        <div id="@card.ID-details">
-                                                        </div>
-                                                    </td>
+                                    <td><a name="@card.ID-cardID" id="@card.ProductName-edit" asp-controller="ProcessCards" asp-action="Edit" asp-route-id="@card.ID" class="btn btn-primary btn-xs loadPartial">Edit <i class="fa fa-edit"></i></a></td>
                                 }
                                 <td>
-                                    <div id="@card.ProductName-details"></div>
+                                    <div id="@card.ID-details"></div>
                                 </td>
 
 
@@ -118,6 +114,7 @@
         $(document).ready(function () {
 
             $('.footable').footable();
+           
         });
     </script>
 
@@ -128,26 +125,24 @@
                         // Add slimscroll to element
                         $('.scroll_content').slimscroll({
                             height: '25px'
-                        })
-                        $('input[name="lockedTxt"]').attr("readonly", !@CanEdit);
-                        $('.edit-button').click( function (evt) {
-                            evt.preventDefault();
-                            evt.stopPropagation();
-                            var a = $(this).attr("id").replace("edit", "details");
-                            url = $(this).attr('href');
-                            $("div[id='" + a + "']").load(url, function () {
-                                var a = $(this).attr("id").replace("details", "main");
-                                $("tr[id='" + a + "']").trigger('footable_toggle_row');
-                            });
                         });
-                        $('.show90d').click(function (evt) {
+
+                        $('input[name="lockedTxt"]').attr("readonly", !@CanEdit);
+                        $('.loadPartial').click(function (evt) {
                             evt.preventDefault();
                             evt.stopPropagation();
                             var product = evt.currentTarget.name.replace('-cardID', '');
-                            console.log(product);
+                            $('#' + product + '-details').empty();
                             url = $(this).attr('href');
-                            $('#' + product + '-details').load(url, function () {
-                                $('#' + product + '-main').trigger('footable_toggle_row');
+                            var d = document.createElement("div");
+                            d.id = product + "-details-item";
+                            console.log($('#' + product + '-details').length);
+                            $('#' + product + '-details').append(d);
+                            $('#' + d.id).load(url, function () {
+                                $('.footable').trigger('footable_initialize');
+                                if (!$('#' + product + '-main').hasClass("footable-detail-show")) {
+                                    $('#' + product + '-main').trigger("footable_toggle_row");
+                                }
                             });
                         });
                     });

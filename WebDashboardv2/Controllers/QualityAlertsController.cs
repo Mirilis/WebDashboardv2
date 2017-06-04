@@ -75,6 +75,11 @@ namespace WebDashboardv2.Controllers
 
         private IActionResult Create(int Id)
         {
+            ViewData["Products"] = products;
+            if (Id >0)
+            {
+                ViewData["AlertToCopy"] = qualityAlerts.ProductAlerts.Where(x => x.ID == Id).First();
+            }
             return View("Create");
         }
         

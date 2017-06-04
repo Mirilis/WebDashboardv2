@@ -21,6 +21,7 @@ namespace WebDashboardv2.Model
         string TemplateTypePath { get; set; }
         int RepeatCount { get; set; }
         string RootCause { get; set; }
+        Departments Departments { get; set; }
         List<string> AffectedDepartments { get; set; }
     }
 }

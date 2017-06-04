@@ -14,6 +14,7 @@ namespace WebDashboardv2.Model
         public DbSet<ProcessCardKey> ProcessCardKeys { get; set; }
         public DbSet<BlisProductsView> BlisProductsView { get; set; }
         public DbSet<BlisCoresView> BlisCoresView { get; set; }
+        public DbSet<ProductAlert> ProductAlerts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

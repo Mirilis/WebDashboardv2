@@ -1,43 +1,74 @@
 
 @{
     ViewData["Title"] = "Create";
+    WebDashboardv2.Model.IProductsModel products = (WebDashboardv2.Model.IProductsModel)ViewData["Products"];
+    
 }
 
-<h2>Create</h2>
-<div>
-    <div class="form-group col-lg-6">
-        <label class="font-normal">Affected Departments</label>
-        <select data-placeholder="Choose Departments" class="chosen-select" multiple tabindex="4">
-            @foreach (WebDashboardv2.Model.Departments dept in Enum.GetValues(typeof(WebDashboardv2.Model.Departments)))
+
+ @*
+     int ID { get; set; }
+     string Product { get; set; }
+     string Title { get; set; }
+     string Customer { get; set; }
+     string Comments { get; set; }
+     string ActionRequired { get; set; }
+     DateTime AlertDate { get; set; }
+     int Quantity { get; set; }
+     string AuthorizedBy { get; set; }
+     string Image1Path { get; set; }
+     string Image2Path { get; set; }
+     string Image3Path { get; set; }
+     string Image4Path { get; set; }
+     string TemplateTypePath { get; set; }
+     int RepeatCount { get; set; }
+     string RootCause { get; set; }
+     List<string> AffectedDepartments { get; set; }
+     *@
+
+    <h2>Create</h2>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <label class="font-normal">Product </label>
+            <select data-placeholder="Choose Product" class="chosen-select" tabindex="4">
+                @foreach (var product in products.Products)
             {
-                <option value="">@dept.ToString()</option>
-            }
-        </select>
-    </div>
+                    <option value="@product.Product">@product.Product</option>
+                }
+            </select>
+            <label class="font-normal">Affected Departments</label>
+            <select data-placeholder="Choose Departments" class="chosen-select" multiple tabindex="4">
+                @foreach (WebDashboardv2.Model.Departments dept in Enum.GetValues(typeof(WebDashboardv2.Model.Departments)))
+            {
+                    <option value="@dept">@dept.ToString()</option>
+                }
+            </select>
+            
+        </div>
 
 
     </div>
 
-      
-        @section Styles {
-            <environment names="Development">
-                <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
-            </environment>
-            <environment names="Staging,Production">
-                <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
-            </environment>
-        }
 
-        @section Scripts {
-            <environment names="Development">
-                <script src="~/lib/chosen/chosen.jquery.js"></script>
-            </environment>
-            <environment names="Staging,Production">
-                <script src="~/lib/chosen/chosen.jquery.js"></script>
-            </environment>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('.chosen-select').chosen();
-                });
-</script>
-        }
+    @section Styles {
+        <environment names="Development">
+            <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
+        </environment>
+        <environment names="Staging,Production">
+            <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
+        </environment>
+    }
+
+    @section Scripts {
+        <environment names="Development">
+            <script src="~/lib/chosen/chosen.jquery.js"></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/chosen/chosen.jquery.js"></script>
+        </environment>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.chosen-select').chosen();
+            });
+        </script>
+    }

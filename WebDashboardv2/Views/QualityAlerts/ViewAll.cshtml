@@ -42,7 +42,7 @@
 
                                 <td>
                                     @alerts.Where(x => x.AlertDate >= DateTime.Now.AddDays(-90)).Count()
-                                    <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@product.Product" id="@product.Product-90d" class="btn show90d btn-primary btn-xs">
+                                    <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@product.Product" id="@product.Product-90d" name="@product.Product-partial" class="btn loadPartial btn-primary btn-xs">
                                         Show
                                         <i  class="fa fa-arrow-circle-down"></i>
                                     </a>
@@ -50,7 +50,7 @@
                                 <td>
                                     @alerts.Count()
                                     <a asp-controller="QualityAlerts" asp-action="PartialAllTime" asp-route-product="@product.Product"
-                                       id="@product.Product-allTime" class="btn btn-primary btn-xs showAllTime">
+                                       name="@product.Product-partial" id="@product.Product-allTime" class="btn btn-primary btn-xs loadPartial">
                                         Show
                                         <i class="fa fa-arrow-circle-down"></i>
                                     </a>
@@ -95,22 +95,23 @@
             var show90d = false;
             var showAllTime = false;
 
-            $('.show90d').click(function (evt) {
+            $('.loadPartial').click(function (evt) {
                 evt.preventDefault();
                 evt.stopPropagation();
-                var product = evt.currentTarget.id.replace('-90d', '');
+                var product = evt.currentTarget.name.replace('-partial', '');
+                $('#' + product + '-details').empty();
                 url = $(this).attr('href');
-                $('#' + product + '-details').load(url, function () {
-                    $('#'+product+'-main').trigger('footable_toggle_row');
-                });
-            });
-            $('.showAllTime').click(function (evt) {
-                evt.preventDefault();
-                evt.stopPropagation();
-                var product = evt.currentTarget.id.replace('-allTime', '');
-                url = $(this).attr('href');
-                $('#' + product + '-details').load(url, function () {
-                    $('#' + product + '-main').trigger('footable_toggle_row');
+                var d = document.createElement("div");
+                d.id = product + "-details-item";
+                console.log($('#' + product + '-details').length);
+                $('#' + product + '-details').append(d);
+                $('#' + d.id).load(url, function () {
+                    $('.footable').trigger('footable_initialize');
+                    if (!$('#' + product + '-main').hasClass("footable-detail-show")) {
+                        $('#' + product + '-main').trigger("footable_toggle_row");
+                    }
+                        
+                    
                 });
             });
         });
