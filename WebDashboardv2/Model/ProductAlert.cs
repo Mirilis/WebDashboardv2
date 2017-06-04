@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace WebDashboardv2.Model
 {
-    public class ProductAlert
+    public class ProductAlert : IProductAlerts
     {
         [Key]
         public int ID { get; set; }
@@ -26,7 +26,9 @@ namespace WebDashboardv2.Model
         public int RepeatCount { get; set; }
         public string RootCause { get; set; }
         public Departments Departments { get; set; }
+        public string Description { get; set; }
         [NotMapped]
         public List<string> AffectedDepartments { get; set; }
+        
     }
 }

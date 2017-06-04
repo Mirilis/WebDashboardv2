@@ -11,7 +11,6 @@
 
     .details {
         font-size: 10px;
-        padding-left: 25px;
     }
 </style>
 <nav class="navbar-default navbar-static-side" role="navigation">
@@ -34,54 +33,28 @@
                     NEMF
                 </div>
             </li>
-
             <li class="@Html.IsSelected(controller: "ProcessCards")">
                 <a asp-controller="ProcessCards" asp-action="Index">
                     <div>
                         <i class="fa fa-files-o"></i>
-                        <span class="nav-label">Process Cards</span>
-                        <span class="fa arrow"></span>
+                        <span class="nav-label">
+                            <span class="nav-label">Process Cards</span>
+                            <span class="fa arrow"></span>
+                            <br />
+                            <span class="nav-label details">
+                                View or Manage Process Cards
+                            </span>
+                        </span>
                     </div>
-                    <div class="details">
-                        View or Manage Process Cards
-                    </div>
+
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "ProcessCards", cssClass: "in")">
                     <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="0">Core Make</a></li>
                     <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="4">Core Assembly</a></li>
-                    <li>
-                        <a asp-controller="ProcessCards" , asp-action="Molding">
-                            <span class="nav-label">Molding</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-third-level">
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="5">Osborn Molding</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="6">Sinto Molding</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="ProcessCards" , asp-action="Index">
-                            <span class="nav-label">Melt</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-third-level">
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="7">Pressure Pour 1</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="8">Pressure Pour 2</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="ProcessCards" , asp-action="Index">
-                            <span class="nav-label">Cleaning</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-third-level">
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="9">Line 1 Inspect</a></li>
-                            <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="10">Line 2 Inspect</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="ProcessCards" asp-action="Index" asp-route-id="11">Finishing</a>
-                    </li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="5">Molding</a></li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="7">Melt</a></li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="9">Cleaning</a></li>
+                    <li><a asp-controller="ProcessCards" asp-action="Index" asp-route-id="11">Finishing</a></li>
                     @if (UserAccess.CanAddProcessCards)
                     {
                         <li><a asp-controller="ProcessCards" asp-action="Add">Add New Process Card</a></li>
@@ -92,12 +65,16 @@
                 <a asp-controller="QualityAlerts" asp-action="Index">
                     <div>
                         <i class="fa fa-exclamation-circle"></i>
-                        <span class="nav-label">Quality Alerts</span>
-                        <span class="fa arrow"></span>
+                        <span class="nav-label">
+                            <span class="nav-label">Quality Alerts</span>
+                            <span class="fa arrow"></span>
+                            <br />
+                            <span class="nav-label details">Create, View, or Manage Quality Alert Records
+                            </span>
+                        </span>
                     </div>
-                    <div class="details">
-                        Create, View, or Manage Quality Alert Records
-                    </div>
+                    
+                    
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "QualityAlerts", cssClass: "in")">
                     <li><a asp-controller="QualityAlerts" asp-action="CreateNew">Create New Alert</a></li>
@@ -111,10 +88,12 @@
                         <i class="fa fa-question-circle"></i>
                         <span class="nav-label">Quality Concerns</span>
                         <span class="fa arrow"></span>
+                        <br />
+                        <span class="nav-label details">
+                            Create, View, or Manage Quality Concern Records
+                        </span>
                     </div>
-                    <div class="details">
-                        Create, View, or Manage Quality Concern Records
-                    </div>
+                    
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "QualityConcerns", cssClass: "in")">
                     <li><a asp-controller="QualityConcerns" asp-action="CreateNew">Add New Concern</a></li>
@@ -128,10 +107,12 @@
                         <i class="fa fa-gears"></i>
                         <span class="nav-label">Sample Manager</span>
                         <span class="fa arrow"></span>
+                        <br />
+                        <span class="nav-label details">
+                            Create, View, Or Manaage Sample Travellers
+                        </span>
                     </div>
-                    <div class="details">
-                        Create, View, Or Manaage Sample Travellers
-                    </div>
+       
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "SampleManager", cssClass: "in")">
                     <li><a asp-controller="SampleManager" asp-action="CreateNew">Create New Traveller</a></li>
@@ -142,14 +123,16 @@
             <li class="@Html.IsSelected(controller: "MaterialCertification")">
                 <a asp-controller="MaterialCertification" , asp-action="Index">
                     <div>
-                        <i class="fa fa-info-circle"></i>
+                        <i class="fa fa-check-circle"></i>
                         <span class="nav-label">Material Certification</span>
                         <span class="fa arrow"></span>
+                        <br />
+                        <span class="nav-label details">
+                            Create, View, and Manange Product Material Certification Records
+                        </span>
                     </div>
-                    <div class="details">
-                        Create, View, and Manange Product Material Certification Records
-                    </div>
-                </a>
+
+</a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "MaterialCertification", cssClass: "in")">
                     <li><a asp-controller="MaterialCertification" asp-action="CreateNew">Generate Certification</a></li>
                     <li><a asp-controller="MaterialCertification" asp-action="AddResults">Add Labratory Test Results</a></li>
@@ -159,13 +142,15 @@
             <li class="@Html.IsSelected(controller: "BrinellRecords")">
                 <a asp-controller="BrinellRecords" , asp-action="Index">
                     <div>
-                        <i class="fa fa-info-circle"></i>
+                        <i class="fa fa-list-ul"></i>
                         <span class="nav-label">Brinell Records</span>
                         <span class="fa arrow"></span>
+                        <br />
+                        <span class="nav-label details">
+                            View and Manange Brinell Records
+                        </span>
                     </div>
-                    <div class="details">
-                        View and Manange Brinell Records
-                    </div>
+                   
                 </a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "BrinellRecords", cssClass: "in")">
                     <li><a asp-controller="BrinellRecords" asp-action="ViewAll">View HBW Records</a></li>
@@ -179,11 +164,13 @@
                         <i class="fa fa-users"></i>
                         <span class="nav-label">LPA Manager</span>
                         <span class="fa arrow"></span>
+                        <br />
+                        <span class="nav-label details">
+                            Create, View, Or Manage Layered Process Audit Documentation
+                        </span>
                     </div>
-                    <div class="details">
-                        Create, View, Or Manage Layered Process Audit Documentation
-                    </div>
-                </a>
+                
+</a>
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "LayeredProcessAuditing", cssClass: "in")">
                     <li><a asp-controller="LayeredProcessAuditing" asp-action="CreateNew">Generate LPA Package</a></li>
                     <li><a asp-controller="LayeredProcessAuditing" asp-action="AddNewQuestion">Add New Audit Question</a></li>

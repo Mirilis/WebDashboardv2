@@ -40,14 +40,35 @@ namespace WebDashboardv2.Model
 
         public List<MinProcessCard> DepartmentalCards(ProcessCardClass pcc)
         {
-            if ((int)pcc == 0)
+            switch (pcc)
             {
-                var pcc1 = (ProcessCardClass)1;
-                var pcc2 = (ProcessCardClass)2;
-                var pcc3 = (ProcessCardClass)3;
-                return MinCards.Where(x => x.ProcessCardType == pcc.ToString().ToSentenceCase() || x.ProcessCardType == pcc1.ToString().ToSentenceCase() || x.ProcessCardType == pcc2.ToString().ToSentenceCase() || x.ProcessCardType == pcc3.ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.CoremakeCB22:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)2).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)3).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.Coremake321:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)2).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)3).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.CoremakeLaempe:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)2).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)3).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.Coremake106:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)1).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)2).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)3).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.CoreAssembly:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)4).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.MoldingOsborn:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)5).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)6).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.MoldingSinto:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)6).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)5).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.MeltingOsborn:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)7).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)8).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.MeltingSinto:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)8).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)7).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.CleaningOsborn:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)9).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)10).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.CleaningSinto:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)10).ToString().ToSentenceCase() || x.ProcessCardType == ((ProcessCardClass)9).ToString().ToSentenceCase()).ToList();
+                case ProcessCardClass.Finishing:
+                    return MinCards.Where(x => x.ProcessCardType == ((ProcessCardClass)11).ToString().ToSentenceCase()).ToList();
+                default:
+                    return null;
             }
-            return MinCards.Where(x => x.ProcessCardType == pcc.ToString().ToSentenceCase()).ToList();
         }
 
         public bool Update(string ID, string key, string value)

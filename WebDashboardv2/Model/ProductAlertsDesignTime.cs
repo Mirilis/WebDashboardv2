@@ -23,6 +23,8 @@ namespace WebDashboardv2.Model
         public List<string> AffectedDepartments { get => new List<string>() { "Mold","Core" }; set => throw new NotImplementedException(); }
         public int ID { get => 1; set => throw new NotImplementedException(); }
         public string RootCause { get => "Dumbasses"; set => throw new NotImplementedException(); }
+        public Departments Departments { get => Departments.Mold | Departments.Core; set => throw new NotImplementedException(); }
+        public string Description { get => "Bob's uncle sucks at this"; set => throw new NotImplementedException(); }
 
         public ProductAlertsDesignTime()
         {
