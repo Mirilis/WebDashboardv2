@@ -2,7 +2,39 @@
 
 This is a complete re-write of the plugin. There is no upgrade path from V2 to V3 at present as the options and the way the code is written are inherently different. Please check out the full documentation for V3 found in the docs folder or by viewing it [online here](http://fooplugins.github.io/FooTable/).
 
+### Contributors
+
+Pull requests need to be made against the [develop branch](https://github.com/fooplugins/FooTable/tree/develop) as a new feature. I've switched to using a GitFlow process with this repository to try keep things organized a bit more. It makes it easier for me to test and make changes to submitted pull requests before merging the feature into the develop branch. The master branch now only contains release versions of the code.
+
 # Changelog #
+
+### 3.1.4
+
+- Updated the `FooTable.Table#draw` method to prevent unnecessary browser reflows and hide an unstyled flash of content during the initial loading of the table. (@jleider & @mrdziuban)
+- Updated the `FooTable.DateColumn#formatter` method to perform a check for invalid dates and return an empty string instead of `"Invalid Date"`. (@jnimety)
+- Updated the `FooTable.Cell#collapse` method to copy all attributes from the original element to the one displayed in the details row. If the element has an ID, the copied version is suffixed with `"-detail"` to avoid duplicates. (@mrdziuban)
+- Updated the `FooTable.Column#parser` method to use jQuery's `.html()` method instead of `.text()` as the latter was decoding HTML entities which were then reinserted into the DOM which opened up the possibility of XSS.
+- Removed the `FooTable.Paging#_countFormat` private method and replaced it with a new `FooTable.Paging#format( string )` method to make custom paging UI's simpler to implement.
+- Fixed an issue with column classes and styles supplied through the options not being applied to the actual column header `TH` element.
+
+----------
+
+### 3.1.3
+
+- Added a new `dropdownTitle` option to the filtering component. This options specifies a title to display at the top of the column select dropdown.
+- Added a new `exactMatch` option to the filtering component.
+- Added a new utility method `FooTable.str.containsExact(string, match, ignoreCase)`.
+- Added a class `footable-filtering-search` to the `form-group` of the built in search input for the filtering component.
+- Added `footable-first-visible` and `footable-last-visible` classes to all cells (including headers) in either the first or last visible columns respectively.
+- Updated the `min` option default value from `3` to `1` for the filtering component.
+- Updated the load priority for rows and columns supplied via options or ajax load, they now take precedence over those supplied through the DOM to work around issues with the plugin being reinitialized multiple times on the same element.
+- Fixed an issue in the `FooTable.Query` object where phrases were not being matched correctly.
+- Fixed filtering component not properly clearing filters when the search input is cleared using backspace or delete.
+- Fixed the resize event not being removed when the plugin is destroyed.
+- Fixed an issue with unexpected sorting and filtering results if the `sortValue` and `filterValue` attributes contained a falsy value. The values are now subject to a strict undefined check before being passed off.
+- Fixed an issue with the `date` column type not sorting it's values as expected.
+
+----------
 
 ### 3.1.2
 
@@ -17,6 +49,8 @@ This is a complete re-write of the plugin. There is no upgrade path from V2 to V
 - Fixed the paging components' `countFormat` option placeholder `{TR}` to correctly reflect filtered rows.
 - Fixed preinit unhandled exception if the `table` the plugin is initialized on has no `class` attribute.
 - Fixed issue with the individual components .ZIP missing the `footable.core.bootstrap.min.css` and `footable.core.standalone.min.css` minified files.
+
+----------
 
 ### 3.1.1
 

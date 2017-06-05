@@ -25,6 +25,10 @@ namespace WebDashboardv2.Model
         public string RootCause { get => "Dumbasses"; set => throw new NotImplementedException(); }
         public Departments Departments { get => Departments.Mold | Departments.Core; set => throw new NotImplementedException(); }
         public string Description { get => "Bob's uncle sucks at this"; set => throw new NotImplementedException(); }
+        BlisProductsView IProductAlerts.Product { get => new BlisProductsView(); set => throw new NotImplementedException(); }
+        BlisCustomersView IProductAlerts.Customer { get => new BlisCustomersView(); set => throw new NotImplementedException(); }
+        public int CustomerNumber { get => 7; set => throw new NotImplementedException(); }
+        public string ProductNumber { get => ""; set => throw new NotImplementedException(); }
 
         public ProductAlertsDesignTime()
         {

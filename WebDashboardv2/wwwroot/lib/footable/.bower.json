@@ -1,15 +1,15 @@
 {
   "name": "footable",
   "homepage": "https://github.com/bradvin/FooTable",
-  "version": "3.1.2",
-  "_release": "3.1.2",
+  "version": "3.1.4",
+  "_release": "3.1.4",
   "_resolution": {
     "type": "version",
-    "tag": "3.1.2",
-    "commit": "8c5b158f7e743d2ec8a5689809d6e0b5b39b9071"
+    "tag": "3.1.4",
+    "commit": "8ccbd77222f6f533fe914e1f3dbb49e3cf650b2f"
   },
   "_source": "https://github.com/bradvin/FooTable.git",
-  "_target": "3.1.2",
+  "_target": "3.1.4",
   "_originalSource": "footable",
   "_direct": true
 }

@@ -13,6 +13,7 @@ namespace WebDashboardv2.Model
         public string PourWeight { get; set; }
         public string CastingWeight { get; set; }
         public string ActiveStatus { get; set; }
+        public int CustomerNumber { get; set; }
     }
   
 }

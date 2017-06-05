@@ -10,9 +10,9 @@ namespace WebDashboardv2.Model
     {
         [Key]
         public int ID { get; set; }
-        public string Product { get; set; }
         public string Title { get; set; }
-        public string Customer { get; set; }
+        public int CustomerNumber { get; set; }
+        public string ProductNumber { get; set; }
         public string Comments { get; set; }
         public string ActionRequired { get; set; }
         public DateTime AlertDate { get; set; }
@@ -29,6 +29,10 @@ namespace WebDashboardv2.Model
         public string Description { get; set; }
         [NotMapped]
         public List<string> AffectedDepartments { get; set; }
-        
+        [NotMapped]
+        public BlisProductsView Product { get; set; }
+        [NotMapped]
+        public BlisCustomersView Customer { get; set; }
     }
+
 }

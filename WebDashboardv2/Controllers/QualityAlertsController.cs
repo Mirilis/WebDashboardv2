@@ -37,7 +37,8 @@ namespace WebDashboardv2.Controllers
         public IActionResult Partial90d(string Product)
         {
             ViewData["User"] = userAccess;
-            ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product == Product && x.AlertDate >= DateTime.Now.AddDays(-90)).ToList();
+
+            ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product.Product == Product && x.AlertDate >= DateTime.Now.AddDays(-90)).ToList();
             ViewData["Header"] = string.Format("Alerts for {0}, Last 90 Days", Product);
                 return PartialView("_QualityAlertsByProduct");
         }
@@ -46,7 +47,13 @@ namespace WebDashboardv2.Controllers
         {
             ViewData["User"] = userAccess;
             ViewData["Header"] = string.Format("Alerts for {0}, All Alerts", Product);
-            ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product == Product).ToList();
+
+            var tmpQA = qualityAlerts.ProductAlerts.Where(x => x.Product.Product == Product);
+            if (tmpQA.Any())
+            {
+                ViewData["90dAlerts"] = qualityAlerts.ProductAlerts.Where(x => x.Product.Product == Product).ToList();
+            }
+            
             return PartialView("_QualityAlertsByProduct");
         }
 

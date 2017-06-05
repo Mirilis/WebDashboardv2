@@ -1,0 +1,139 @@
+
+@{
+    ViewData["Title"] = "ViewAll";
+    List<WebDashboardv2.Model.ProductionHardness> productionHardnesses = (List<WebDashboardv2.Model.ProductionHardness>)ViewData["Records"];
+}
+
+<h2>ViewAll</h2>
+<head>
+    <style>
+        .update-label {
+            display: none;
+        }
+        .testdiv {
+           min-width: 75px;
+           width:75px;
+        }
+    </style>
+</head>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox no-margins">
+            <div class="ibox-title">
+                <h5>Production Hardness Records</h5>
+            </div>
+            <div class="ibox-content">
+                <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                       placeholder="Search Alerts">
+
+                <table class="footable table" data-filter-min="0" data-page-size="25" data-filter=#filter>
+                    <thead>
+                        <tr id="alertsTableHeaders">
+                            <th width="100">Date</th>
+                            <th width="100">Product</th>
+                            <th data-breakpoints="xs sm md" width="50">Quantity Produced</th>
+                            <th data-breakpoints="xs sm md" width="150">Brinells Taken</th>
+                            <th data-breakpoints="xs sm md" width="150">Minimum Reading</th>
+                            <th data-breakpoints="xs sm md" width="150">Maximum Reading</th>
+                            <th data-breakpoints="all" width="50">Low Range</th>
+                            <th data-breakpoints="all" width="50">High Range</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var entry in productionHardnesses)
+                        {
+                            int a = (int)Math.Round(((double)entry.Quantity / 30),0);
+                            if (a < 2)
+                            {
+                                a = 2;
+                            }
+                            bool min = false;
+                            bool max = false;
+                            if (entry.MinReading <= entry.MinAllowable-1)
+                            {
+                                min = true;
+                            }
+                            if (entry.MaxReading >= entry.MaxAllowable + 1)
+                            {
+                                max = true;
+                            }
+
+                            <tr class="gradeX" id="@entry.ID-main">
+                                <td>@entry.Date.ToString("MM/dd/yyyy")</td>
+                                <td>@entry.Product</td>
+                                <td>@entry.Quantity.ToString()</td>
+                               @if (entry.RecordCount == 0)
+                               {
+                                <td><div class="label testdiv label-danger">@entry.RecordCount.ToString() / @a.ToString()</div></td>
+                               }
+                               else if (entry.RecordCount < a)
+                               {
+                                <td><div class="label testdiv label-warning">@entry.RecordCount.ToString() / @a.ToString()</div></td>
+                               }
+                               else
+                               {
+                                <td><div >@entry.RecordCount.ToString() / @a.ToString()</div></td>
+                               }
+                                <td>
+                                    @entry.MinReading.ToString()
+                                    @if (min)
+                                    {
+                                        <label class="label label-danger">Out of Range</label>
+                                    }
+                                </td>
+                                <td>
+                                    @entry.MaxReading.ToString()
+                                @if (max)
+                                {
+                                    <label class="label label-danger">Out of Range</label>
+                                }
+                                </td>
+<td>@entry.MinAllowable.ToString()</td>
+                                <td>@entry.MaxAllowable.ToString()</td>
+
+                              
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.min.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/footable/compiled/footable.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/footable/compiled/footable.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.footable').footable();
+        });
+    </script>
+}
+

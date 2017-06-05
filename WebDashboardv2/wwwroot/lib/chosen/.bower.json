@@ -50,5 +50,6 @@
   },
   "_source": "https://github.com/harvesthq/bower-chosen.git",
   "_target": "v1.7.0",
-  "_originalSource": "chosen"
+  "_originalSource": "chosen",
+  "_direct": true
 }

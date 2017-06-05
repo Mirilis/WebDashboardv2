@@ -6,9 +6,11 @@ namespace WebDashboardv2.Model
     public interface IProductAlerts
     {
         int ID { get; set; }
-        string Product { get; set; }
+        BlisProductsView Product { get; set; }
         string Title { get; set; }
-        string Customer { get; set; }
+        BlisCustomersView Customer { get; set; }
+        int CustomerNumber { get; set; }
+        string ProductNumber { get; set; }
         string Comments { get; set; }
         string ActionRequired { get; set; }
         DateTime AlertDate { get; set; }

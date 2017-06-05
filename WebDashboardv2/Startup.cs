@@ -36,6 +36,7 @@ namespace WebDashboardv2
             else
             {
                 services.AddDbContext<Model.ProcessCardContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ProcessCardConnection")));
+                services.AddDbContext<Model.BrinellRecordsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BossRecordsConnection")));
                 services.AddSingleton<Model.IQualityAlertsModel, Model.QualityAlertsModel>();
             }
 
@@ -57,7 +58,7 @@ namespace WebDashboardv2
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Model.ProcessCardContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, Model.ProcessCardContext context, Model.BrinellRecordsContext brinellContext)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();

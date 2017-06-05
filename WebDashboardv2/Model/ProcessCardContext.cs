@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace WebDashboardv2.Model
 {
@@ -15,6 +18,7 @@ namespace WebDashboardv2.Model
         public DbSet<BlisProductsView> BlisProductsView { get; set; }
         public DbSet<BlisCoresView> BlisCoresView { get; set; }
         public DbSet<ProductAlert> ProductAlerts { get; set; }
+        public DbSet<BlisCustomersView> BlisCustomersView { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

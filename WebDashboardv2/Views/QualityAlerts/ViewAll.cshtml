@@ -28,27 +28,35 @@
                     <thead>
                         <tr id="alertsTableHeaders">
                             <th width="125">Product</th>
-                            <th width="125">Last 90 Days</th>
-                            <th width="50">All Time</th>
-                            <th data-hide="all"></th>
+                            <th data-breakpoints="xs sm md" width="125">Last 90 Days</th>
+                            <th data-breakpoints="xs sm md" width="50">All Time</th>
+                            <th data-breakpoints="all"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var product in Products.Products)
                         {
-                            var alerts = Alerts.ProductAlerts.Where(x => x.Product == product.Product);
+                            var alerts = Alerts.ProductAlerts.Where(x => x.Product.Product == product.Product);
+                            int Count90d = 0;
+                            int CountAllTime =0;
+
+                            if (alerts.Any())
+                            {
+                                Count90d = alerts.Where(x => x.AlertDate >= DateTime.Now.AddDays(-90)).Count();
+                                CountAllTime = @alerts.Count();
+                            }
                             <tr class="gradeX" id="@product.Product-main">
                                 <td>@product.Product</td>
 
                                 <td>
-                                    @alerts.Where(x => x.AlertDate >= DateTime.Now.AddDays(-90)).Count()
+                                   @Count90d
                                     <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@product.Product" id="@product.Product-90d" name="@product.Product-partial" class="btn loadPartial btn-primary btn-xs">
                                         Show
                                         <i  class="fa fa-arrow-circle-down"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    @alerts.Count()
+                                   @CountAllTime
                                     <a asp-controller="QualityAlerts" asp-action="PartialAllTime" asp-route-product="@product.Product"
                                        name="@product.Product-partial" id="@product.Product-allTime" class="btn btn-primary btn-xs loadPartial">
                                         Show
@@ -74,27 +82,33 @@
     </div>
 </div>
 
+
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.min.css" />
     </environment>
 }
 
 @section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    <environment names="Development">
+        <script src="~/lib/footable/compiled/footable.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/footable/compiled/footable.min.js"></script>
     </environment>
 
     <script type="text/javascript">
         $(document).ready(function () {
 
             $('.footable').footable();
-            var show90d = false;
-            var showAllTime = false;
 
+            var FT = $('.footable').data('footable');
+            console.log(FT);
             $('.loadPartial').click(function (evt) {
                 evt.preventDefault();
                 evt.stopPropagation();

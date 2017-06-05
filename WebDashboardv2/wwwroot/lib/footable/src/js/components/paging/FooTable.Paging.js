@@ -102,7 +102,7 @@
 			 * @instance
 			 * @type {boolean}
 			 */
-			this.detached = false;
+			this.detached = true;
 
 			/* PRIVATE */
 			/**
@@ -212,7 +212,8 @@
 			this.ft.raise('destroy.ft.paging').then(function(){
 				self.ft.$el.removeClass('footable-paging')
 					.find('tfoot > tr.footable-paging').remove();
-				self.detached = false;
+				self.detached = true;
+				self._createdLinks = 0;
 			});
 		},
 		/**
@@ -227,16 +228,7 @@
 			if (this.totalRows > this.size){
 				this.ft.rows.array = this.ft.rows.array.splice((this.current - 1) * this.size, this.size);
 			}
-
-			var firstRow = (this.size * (this.current - 1)) + 1,
-				lastRow = this.size * this.current;
-			if (this.ft.rows.array.length == 0){
-				firstRow = 0;
-				lastRow = 0;
-			} else {
-				lastRow = lastRow > this.totalRows ? this.totalRows : lastRow;
-			}
-			this.formattedCount = this._countFormat(this.current, this.total, firstRow, lastRow, this.totalRows);
+			this.formattedCount = this.format(this.countFormat);
 		},
 		/**
 		 * Updates the paging UI setting the state of the pagination control.
@@ -272,6 +264,7 @@
 		 * @protected
 		 */
 		$create: function(){
+			this._createdLinks = 0;
 			var position = 'footable-paging-center';
 			switch (this.position){
 				case 'left': position = 'footable-paging-left'; break;
@@ -292,6 +285,33 @@
 		},
 
 		/* PUBLIC */
+		/**
+		 * @summary Uses the supplied format string and replaces the placeholder strings with the current values.
+		 * @description This method is used to generate the short description label for the pagination control. i.e. Showing X of Y records. The placeholders for this string are the following:
+		 * * {CP} - The current page number.
+		 * * {TP} - The total number of pages.
+		 * * {PF} - The first row of the current page.
+		 * * {PL} - The last row of the current page.
+		 * * {TR} - The total rows available.
+		 * These placeholders can be supplied in a string like; "Showing {PF} to {PL} of {TR} rows."
+		 * @param {string} formatString - The string to be formatted with the paging specific variables.
+		 * @returns {string}
+		 */
+		format: function(formatString){
+			var firstRow = (this.size * (this.current - 1)) + 1,
+				lastRow = this.size * this.current;
+			if (this.ft.rows.array.length == 0){
+				firstRow = 0;
+				lastRow = 0;
+			} else {
+				lastRow = lastRow > this.totalRows ? this.totalRows : lastRow;
+			}
+			return formatString.replace(/\{CP}/g, this.current)
+				.replace(/\{TP}/g, this.total)
+				.replace(/\{PF}/g, firstRow)
+				.replace(/\{PL}/g, lastRow)
+				.replace(/\{TR}/g, this.totalRows);
+		},
 		/**
 		 * Pages to the first page.
 		 * @instance
@@ -488,9 +508,9 @@
 			}
 
 			if (this.limit > 0 && this.total < this.limit){
-				this.$pagination.children('li[data-page="prev-limit"],li[data-page="next-limit"]').hide();
+				this.$pagination.children('li[data-page="prev-limit"],li[data-page="next-limit"]').css('display', 'none');
 			} else {
-				this.$pagination.children('li[data-page="prev-limit"],li[data-page="next-limit"]').show();
+				this.$pagination.children('li[data-page="prev-limit"],li[data-page="next-limit"]').css('display', '');
 			}
 
 			if (active){
@@ -528,23 +548,6 @@
 			} else {
 				this.$pagination.children('li.footable-page').removeClass('visible').slice(0, this.total).addClass('visible');
 			}
-		},
-		/**
-		 * Uses the countFormat option to generate the text using the supplied parameters.
-		 * @instance
-		 * @private
-		 * @param {number} currentPage - The current page.
-		 * @param {number} totalPages - The total number of pages.
-		 * @param {number} pageFirst - The first row number of the current page.
-		 * @param {number} pageLast - The last row number of the current page.
-		 * @param {number} totalRows - The total number of rows.
-		 */
-		_countFormat: function(currentPage, totalPages, pageFirst, pageLast, totalRows){
-			return this.countFormat.replace(/\{CP}/g, currentPage)
-				.replace(/\{TP}/g, totalPages)
-				.replace(/\{PF}/g, pageFirst)
-				.replace(/\{PL}/g, pageLast)
-				.replace(/\{TR}/g, totalRows);
 		},
 		/**
 		 * Handles the click event for all links in the pagination control.

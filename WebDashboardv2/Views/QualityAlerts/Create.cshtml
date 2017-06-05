@@ -13,7 +13,7 @@
             
         }
         .imgHolder img {
-            width: 200px;
+            width: 150px;
         }
         .imgHolder span {
             position: absolute;
@@ -52,7 +52,7 @@
                                     {
                                         if (qualityAlert != null)
                                         {
-                                            if (product.Product == qualityAlert.Product)
+                                            if (product.Product == qualityAlert.Product.Product)
                                             {
                                                 <option selected value="@product.Product">@product.Product</option>
                                             }
@@ -165,7 +165,7 @@
                             <input type="file" class="txtArea" name="Image4" />
                         </div>
                     </div>
-
+                    <div class="clearfix"></div>
                     <div class="p-xxs col-sm-6">
                         <button class="p-xxs imgHolder col-sm-12">
                             <img src="~/images/9650279.jpg" />
@@ -208,10 +208,10 @@
 
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
+        <link rel="stylesheet" href="~/lib/chosen/chosen.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/chosen/bootstrap-chosen.css" />
+        <link rel="stylesheet" href="~/lib/chosen/chosen.css" />
     </environment>
 }
 

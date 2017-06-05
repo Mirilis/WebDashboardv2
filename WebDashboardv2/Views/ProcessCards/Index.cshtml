@@ -26,19 +26,19 @@
                 <input type="text" class="form-control input-sm m-b-xs" id="filter"
                        placeholder="Search Process Cards">
 
-                <table class="footable table toggle-circle table-stripped processCards" data-filter-min="0" data-page-size="25" data-filter=#filter>
+                <table class="footable table processCards" data-filter-min="0" data-page-size="25" data-filter=#filter>
                     <thead>
                         <tr>
                             <th width="125">Product</th>
-                            <th width="125">Department</th>
+                            <th data-breakpoints="xs sm md" width="125">Department</th>
                             <th width="50">PDF</th>
-                            <th width="50">Quality Alerts</th>
-                            <th width="50">Quality Concerns</th>
+                            <th data-breakpoints="xs sm md" width="50">Quality Alerts</th>
+                            <th data-breakpoints="xs sm md" width="50">Quality Concerns</th>
                             @if (bool.Parse(CanEdit))
                             {
-                                <th width="50" align="center">EDIT</th>
-                                <th data-hide="all"></th>
-                                                <th data-hide="all"></th>
+                                <th data-breakpoints="xs sm md" width="50" align="center">EDIT</th>
+                                <th data-breakpoints="all"></th>
+                                                
                             }
 
                         </tr>
@@ -98,21 +98,25 @@
 
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.min.css" />
     </environment>
 }
 
 @section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    <environment names="Development">
+        <script src="~/lib/footable/compiled/footable.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/footable/compiled/footable.min.js"></script>
     </environment>
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             $('.footable').footable();
            
         });
@@ -139,10 +143,13 @@
                             console.log($('#' + product + '-details').length);
                             $('#' + product + '-details').append(d);
                             $('#' + d.id).load(url, function () {
-                                $('.footable').trigger('footable_initialize');
-                                if (!$('#' + product + '-main').hasClass("footable-detail-show")) {
-                                    $('#' + product + '-main').trigger("footable_toggle_row");
+                                if (!($('#' + product + '-main').attr("data-expanded")) == true) {
+                                    $('#' + product + '-main').trigger('click');
                                 }
+                                $('.footable').trigger('footable_initialize');
+                                
+                              
+                                
                             });
                         });
                     });

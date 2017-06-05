@@ -64,6 +64,28 @@ namespace WebDashboardv2.Migrations
                     b.ToTable("BlisCoresView");
                 });
 
+            modelBuilder.Entity("WebDashboardv2.Model.BlisCustomersView", b =>
+                {
+                    b.Property<int>("CustomerNumber")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AddressL1");
+
+                    b.Property<string>("AddressL2");
+
+                    b.Property<string>("City");
+
+                    b.Property<string>("CustomerName");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Zip");
+
+                    b.HasKey("CustomerNumber");
+
+                    b.ToTable("BlisCustomersView");
+                });
+
             modelBuilder.Entity("WebDashboardv2.Model.BlisProductsView", b =>
                 {
                     b.Property<int>("ID")
@@ -72,6 +94,8 @@ namespace WebDashboardv2.Migrations
                     b.Property<string>("ActiveStatus");
 
                     b.Property<string>("CastingWeight");
+
+                    b.Property<string>("CustomerNumber");
 
                     b.Property<string>("Description");
 
@@ -143,6 +167,50 @@ namespace WebDashboardv2.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ProcessCardKeys");
+                });
+
+            modelBuilder.Entity("WebDashboardv2.Model.ProductAlert", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ActionRequired");
+
+                    b.Property<DateTime>("AlertDate");
+
+                    b.Property<string>("AuthorizedBy");
+
+                    b.Property<string>("Comments");
+
+                    b.Property<int>("CustomerNumber");
+
+                    b.Property<int>("Departments");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Image1Path");
+
+                    b.Property<string>("Image2Path");
+
+                    b.Property<string>("Image3Path");
+
+                    b.Property<string>("Image4Path");
+
+                    b.Property<string>("ProductNumber");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int>("RepeatCount");
+
+                    b.Property<string>("RootCause");
+
+                    b.Property<string>("TemplateTypePath");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ProductAlerts");
                 });
 
             modelBuilder.Entity("WebDashboardv2.Model.DataPoint", b =>

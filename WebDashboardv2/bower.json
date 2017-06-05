@@ -15,8 +15,8 @@
     "jQuery.dotdotdot": "~1.7.4",
     "bootstrap-tour": "~0.10.2",
     "jquery-file-upload": "9.18.0",
-    "chosen": "v1.7.0",
-    "footable": "3.1.2"
+    "footable": "3.1.4",
+    "chosen": "v1.7.0"
   },
   "resolutions": {
     "jquery": ">=1.6.2"
