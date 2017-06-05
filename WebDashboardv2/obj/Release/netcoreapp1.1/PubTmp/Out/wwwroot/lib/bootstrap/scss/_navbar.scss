@@ -9,7 +9,6 @@
 // Navbar position
 // Navbar themes
 
-
 // Navbar
 //
 // Provide a static navbar from which we expand to create full-width, fixed, and
@@ -21,7 +20,6 @@
   flex-direction: column;
   padding: $navbar-padding-y $navbar-padding-x;
 }
-
 
 // Navbar brand
 //
@@ -41,7 +39,6 @@
   }
 }
 
-
 // Navbar nav
 //
 // Custom navbar navigation (doesn't require `.nav`, but does make use of `.nav-link`).
@@ -59,7 +56,6 @@
   }
 }
 
-
 // Navbar text
 //
 //
@@ -69,7 +65,6 @@
   padding-top:    .425rem;
   padding-bottom: .425rem;
 }
-
 
 // Responsive navbar
 //
@@ -171,7 +166,6 @@
     }
   }
 }
-
 
 // Navbar themes
 //

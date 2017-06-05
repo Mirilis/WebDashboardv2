@@ -1,4 +1,4 @@
-module('Methods (jQuery)', {
+﻿module('Methods (jQuery)', {
     setup: function(){
         this.$inputs = $('<input><input>')
             .datepicker()

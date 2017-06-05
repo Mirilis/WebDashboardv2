@@ -5,7 +5,6 @@
 // Global resets to common HTML elements and more for easier usage by Bootstrap.
 // Adds additional rules on top of Normalize.css, including several overrides.
 
-
 // Reset the box-sizing
 //
 // Change from `box-sizing: content-box` to `border-box` so that when you add
@@ -29,7 +28,6 @@ html {
   box-sizing: inherit;
 }
 
-
 // Make viewport responsive
 //
 // @viewport is needed because IE 10+ doesn't honor <meta name="viewport"> in
@@ -48,7 +46,6 @@ html {
 @at-root {
   @-ms-viewport { width: device-width; }
 }
-
 
 //
 // Reset HTML, body, and more
@@ -91,7 +88,6 @@ body {
 [tabindex="-1"]:focus {
   outline: none !important;
 }
-
 
 //
 // Typography
@@ -155,7 +151,6 @@ blockquote {
   margin: 0 0 1rem;
 }
 
-
 //
 // Links
 //
@@ -190,7 +185,6 @@ a:not([href]):not([tabindex]) {
   }
 }
 
-
 //
 // Code
 //
@@ -204,7 +198,6 @@ pre {
   overflow: auto;
 }
 
-
 //
 // Figures
 //
@@ -214,7 +207,6 @@ figure {
   // We reset that to create a better flow in-page.
   margin: 0 0 1rem;
 }
-
 
 //
 // Images
@@ -228,7 +220,6 @@ img {
   // For the rationale behind this, see the comments on the `.img-fluid` class.
 }
 
-
 // iOS "clickable elements" fix for role="button"
 //
 // Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
@@ -238,7 +229,6 @@ img {
 [role="button"] {
   cursor: pointer;
 }
-
 
 // Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
 //
@@ -261,7 +251,6 @@ summary,
 textarea {
   touch-action: manipulation;
 }
-
 
 //
 // Tables
@@ -286,7 +275,6 @@ th {
   // Centered by default, but left-align-ed to match the `td`s below.
   text-align: left;
 }
-
 
 //
 // Forms
@@ -325,7 +313,6 @@ input[type="checkbox"] {
     cursor: $cursor-disabled;
   }
 }
-
 
 input[type="date"],
 input[type="time"],

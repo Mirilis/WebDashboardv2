@@ -55,7 +55,6 @@
   }
 }
 
-
 //
 // Optional textual caps
 //
@@ -81,7 +80,6 @@
   }
 }
 
-
 //
 // Header navs
 //
@@ -97,7 +95,6 @@
   margin-right: -($card-spacer-x / 2);
   margin-left: -($card-spacer-x / 2);
 }
-
 
 //
 // Background variations
@@ -171,8 +168,6 @@
   padding: $card-img-overlay-padding;
 }
 
-
-
 // Card image caps
 .card-img-top {
   @include border-top-radius($card-border-radius-inner);
@@ -180,7 +175,6 @@
 .card-img-bottom {
   @include border-bottom-radius($card-border-radius-inner);
 }
-
 
 // Card deck
 
@@ -202,7 +196,6 @@
     }
   }
 }
-
 
 //
 // Card groups
@@ -256,7 +249,6 @@
     }
   }
 }
-
 
 //
 // Columns

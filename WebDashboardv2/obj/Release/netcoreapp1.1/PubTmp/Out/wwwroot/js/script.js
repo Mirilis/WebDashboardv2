@@ -5,10 +5,7 @@
  *
  */
 
-
 $(document).ready(function () {
-
-
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
         $('body').addClass('body-small')
@@ -101,7 +98,6 @@ $(document).ready(function () {
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
-
     });
 
     // Tooltips demo
@@ -109,7 +105,6 @@ $(document).ready(function () {
         selector: "[data-toggle=tooltip]",
         container: "body"
     });
-
 
     // Full height of sidebar
     function fix_height() {
@@ -134,7 +129,6 @@ $(document).ready(function () {
                 $('#page-wrapper').css("min-height", $(window).height() - 60 + "px");
             }
         }
-
     }
 
     fix_height();
@@ -173,7 +167,6 @@ $(document).ready(function () {
     })
 });
 
-
 // Minimalize menu when screen is less than 768px
 $(window).bind("resize", function () {
     if ($(this).width() < 769) {
@@ -187,7 +180,6 @@ $(window).bind("resize", function () {
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
     if (localStorageSupport()) {
-
         var collapse = localStorage.getItem("collapse_menu");
         var fixedsidebar = localStorage.getItem("fixedsidebar");
         var fixednavbar = localStorage.getItem("fixednavbar");
@@ -213,7 +205,6 @@ $(document).ready(function () {
                 if (!body.hasClass('body-small')) {
                     body.addClass('mini-navbar');
                 }
-
             }
         }
 

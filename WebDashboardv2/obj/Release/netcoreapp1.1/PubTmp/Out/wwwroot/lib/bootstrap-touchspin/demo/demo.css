@@ -143,7 +143,6 @@ small {
     color: #fff;
 }
 
-
 .dropdown-menu {
     border-radius: 0;
     padding: 10px 0;
@@ -253,7 +252,6 @@ small {
 .nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
     border-radius: 0;
 }
-
 
 /* woodpaul on board */
 .hero-unit {
@@ -380,4 +378,3 @@ code {
         display: none;
     }
 }
-

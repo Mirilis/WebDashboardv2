@@ -100,12 +100,7 @@
                 </div>
                 <textarea rows="10" cols="30" id="docStatus" class="form-control"></textarea><br />
             </div>
-
         </div>
-
-
-
-
     </div>
 
     <script>
@@ -129,7 +124,7 @@
         Code for document idle timer
         */
         (function ($) {
-        
+
             // Display the actual timeout on the page
             $('#docTimeout').text(docTimeout / 1000);
 
@@ -182,7 +177,6 @@
             }
 
         })(jQuery);
-
     </script>
 
     <script>
@@ -315,7 +309,6 @@
             });
 
         })(jQuery);
-
     </script>
 
     <script>
@@ -380,7 +373,7 @@
                 return false;
             });
             $("#btExplicitDestroy").click(function () {
-                
+
                 $(document).idleTimer("destroy").find("h2").css({ "background-color": rndColor() });
                 $('#docStatus')
                     .val(function (i, v) {
@@ -447,9 +440,6 @@
                 return false;
             });
         })(jQuery);
-
     </script>
-
 </body>
-
 </html>

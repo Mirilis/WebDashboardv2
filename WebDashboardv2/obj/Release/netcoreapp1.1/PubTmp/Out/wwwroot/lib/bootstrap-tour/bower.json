@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "bootstrap-tour",
   "main": [
     "./build/js/bootstrap-tour.js",

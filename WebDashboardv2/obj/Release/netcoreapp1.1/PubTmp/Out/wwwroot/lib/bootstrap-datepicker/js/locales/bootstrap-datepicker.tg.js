@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Tajik (cyrillic) translation for bootstrap-datepicker
  * Bakhtiyor Bahritidinov <i@bakhtiyor.tj>
  * Orif N. Jr. <orif.zade@gmail.com>
  */
-;(function($){
+; (function ($) {
     $.fn.datepicker.dates['tg'] = {
         days: ["Якшанбе", "Душанбе", "Сешанбе", "Чоршанбе", "Панҷшанбе", "Ҷумъа", "Шанбе"],
         daysShort: ["Яшб", "Дшб", "Сшб", "Чшб", "Пшб", "Ҷум", "Шнб"],

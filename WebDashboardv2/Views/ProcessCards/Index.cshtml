@@ -13,6 +13,7 @@
         .update-label {
             display: none;
         }
+      
     </style>
 </head>
 
@@ -23,10 +24,7 @@
                 <h5>@ProcessCardClass Process Cards</h5>
             </div>
             <div class="ibox-content">
-                <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                       placeholder="Search Process Cards">
-
-                <table class="footable table processCards" data-filter-min="0" data-page-size="25" data-filter=#filter>
+                <table class="footable table footable-filtering-left" data-show-toggle="false" data-filtering="true" data-filter-min="0" data-page-size="25">
                     <thead>
                         <tr>
                             <th width="125">Product</th>

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Persian(Farsi) translation for bootstrap-markdown
  * Sajad Dehshiri <Pelakweb.ir>
  */

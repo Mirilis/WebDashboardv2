@@ -22,7 +22,6 @@
   }
 
   $.fn.TouchSpin = function(options) {
-
     if (options === 'destroy') {
       this.each(function() {
         var originalinput = $(this),
@@ -92,7 +91,6 @@
     };
 
     return this.each(function() {
-
       var settings,
           originalinput = $(this),
           originalinput_data = originalinput.data(),
@@ -108,7 +106,6 @@
 
       init();
 
-
       function init() {
         if (originalinput.data('alreadyinitialized')) {
           return;
@@ -117,7 +114,6 @@
         originalinput.data('alreadyinitialized', true);
         _currentSpinnerId += 1;
         originalinput.data('spinnerid', _currentSpinnerId);
-
 
         if (!originalinput.is('input')) {
           console.log('Must be an input.');
@@ -678,9 +674,6 @@
         spincount = 0;
         spinning = false;
       }
-
     });
-
   };
-
 })(jQuery);

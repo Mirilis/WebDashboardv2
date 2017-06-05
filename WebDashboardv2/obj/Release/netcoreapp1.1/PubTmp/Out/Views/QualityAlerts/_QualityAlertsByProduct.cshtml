@@ -1,0 +1,73 @@
+
+@{
+    ViewData["Title"] = "Quality Alerts By Product";
+    List<WebDashboardv2.Model.IProductAlerts> productAlerts = (List<WebDashboardv2.Model.IProductAlerts>)ViewData["90dAlerts"];
+    string header = (string)ViewData["Header"];
+    WebDashboardv2.Model.IUserAccessModel user = (WebDashboardv2.Model.IUserAccessModel)ViewData["User"];
+}
+<head>
+    <style>
+        .wid {
+            min-width: 900px;
+        }
+    </style>
+</head>
+@if (productAlerts != null)
+{
+    <div class="row wid">
+        <div class="col-lg-12">
+            <div class="wrapper wrapper-content animated fadeInUp">
+
+                <div class="ibox">
+ 
+                    <div class="project-list">
+                        @foreach (var alert in productAlerts)
+                        {
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td class="project-status">
+
+                                            <span class="label label-danger">Unresolved</span>
+                                        </td>
+                                        <td class="project-title">
+                                            <a href="@Url.Action("ProjectDetail", "AppViews")">@alert.Title</a>
+                                            <br />
+                                            <small>@alert.AlertDate.ToString("MM/dd/yyyy")</small>
+                                        </td>
+                                        <td class="AlertSeverity">
+                                            @{
+                                                var severity = "label-warning";
+                                                var severityText = string.Format("New Issue ({0})", alert.RepeatCount);
+                                                if (alert.RepeatCount > 1)
+                                                {
+                                                    severity = "label-danger";
+                                                    severityText = string.Format("Repeat Issue ({0})", alert.RepeatCount);
+                                                }
+                                            }
+                                            <div class="label @severity">@severityText</div>
+                                        </td>
+
+                                        <td >
+                                            <div class="inline">Affected Departments: </div>
+                                            @foreach (var dept in alert.AffectedDepartments)
+                                            {
+                                                <div class="inline">@dept </div>
+                                            }
+                                        </td>
+                                        @if (user.CanCreateQualityAlerts) { 
+                                        <td>
+                                            <a asp-controller="QualityAlerts" asp-action="CreateRepeatAlert" asp-route-id="@productAlerts.First().ID" class="btn btn-primary btn-xs">Create Repeat Alert</a>
+                                        </td>
+                                        }
+                                    </tr>
+                                </tbody>
+                            </table>
+                                                }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                }

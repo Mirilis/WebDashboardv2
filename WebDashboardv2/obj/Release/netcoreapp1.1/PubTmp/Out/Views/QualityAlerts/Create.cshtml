@@ -1,0 +1,249 @@
+
+@{
+    ViewData["Title"] = "Create";
+    WebDashboardv2.Model.IProductsModel products = (WebDashboardv2.Model.IProductsModel)ViewData["Products"];
+    WebDashboardv2.Model.IProductAlerts qualityAlert = (WebDashboardv2.Model.IProductAlerts)ViewData["AlertToCopy"];
+
+}
+
+<head>
+    <style>
+        .imgHolder {
+            position: relative;
+            
+        }
+        .imgHolder img {
+            width: 150px;
+        }
+        .imgHolder span {
+            position: absolute;
+            right: 25px;
+            top: 10px;
+            
+            
+        }
+    </style>
+</head>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                @if (qualityAlert != null)
+                {
+                    <h5>Create Repeat Alert</h5>
+                }
+                else
+                {
+                    <h5>Create New Alert</h5>
+                }
+                
+            </div>
+            <div class="ibox-content col-lg-12">
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        <div>
+                            <label class="col-sm-2 font-normal">Product </label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <select data-placeholder="Choose Product" class=" chosen-select" tabindex="4">
+                                    <option value="">Choose Product</option>
+                                    @foreach (var product in products.Products)
+                                    {
+                                        if (qualityAlert != null)
+                                        {
+                                            if (product.Product == qualityAlert.Product.Product)
+                                            {
+                                                <option selected value="@product.Product">@product.Product</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="@product.Product">@product.Product</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Alert Title</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <textarea class="txtArea" name="Title">@if (qualityAlert != null) { @qualityAlert.Title }
+                               </textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Depts</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <select data-placeholder="Choose Departments" class="chosen-select" chosen-select" multiple tabindex="4">
+                                    @foreach (WebDashboardv2.Model.Departments dept in Enum.GetValues(typeof(WebDashboardv2.Model.Departments)))
+                                    {
+                                        if (qualityAlert != null)
+                                        {
+                                            if (qualityAlert.Departments.HasFlag(dept))
+                                            {
+                                                <option selected value="@dept">@dept.ToString()</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="@dept">@dept.ToString()</option>
+                                        }
+
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Description</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <textarea class="txtArea" name="Description">@if (qualityAlert != null) { @qualityAlert.Description }</textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Action Required</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <textarea class="txtArea" name="ActionRequired">@if (qualityAlert != null) { @qualityAlert.ActionRequired }</textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Comments</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <textarea class="txtArea" name="Comments">@if (qualityAlert != null) { @qualityAlert.Comments }</textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Quantity</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <input type="text" class="txtArea" name="Quantity" value="@if (qualityAlert != null) { @qualityAlert.Quantity }" />
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div>
+                            <label class="col-sm-2 font-normal">Root Cause</label>
+                            <div class="p-xxs col-sm-4 col-lg-10">
+                                <textarea class="txtArea" name="RootCause">@if (qualityAlert != null) { @qualityAlert.RootCause }</textarea>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div>
+                        <label class="col-sm-2 font-normal">Image 1</label>
+                        <div class="p-xxs col-sm-4 col-lg-10">
+                            <input type="file" class="txtArea" name="Image1" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label class="col-sm-2 font-normal">Image 2</label>
+                        <div class="p-xxs col-sm-4 col-lg-10">
+                            <input type="file" class="txtArea" name="Image2" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label class="col-sm-2 font-normal">Image 3</label>
+                        <div class="p-xxs col-sm-4 col-lg-10">
+                            <input type="file" class="txtArea" name="Image3" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div>
+                        <label class="col-sm-2 font-normal">Image 4</label>
+                        <div class="p-xxs col-sm-4 col-lg-10">
+                            <input type="file" class="txtArea" name="Image4" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="p-xxs col-sm-6">
+                        <button class="p-xxs imgHolder col-sm-12">
+                            <img src="~/images/9650279.jpg" />
+                            <span class="label"><strong>Template #1</strong></span>
+                        </button>
+                    </div>
+
+                    <div class="p-xxs col-sm-6">
+                        <button class="p-xxs imgHolder col-sm-12">
+                            <img src="~/images/9650279.jpg" />
+                            <span class="label"><strong>Template #1</strong></span>
+                        </button>
+                    </div>
+                    <div class="p-xxs col-sm-6">
+                        <button class="p-xxs imgHolder col-sm-12">
+                            <img src="~/images/9650279.jpg" />
+                            <span class="label"><strong>Template #1</strong></span>
+                        </button>
+                    </div>
+                    <div class="p-xxs col-sm-6">
+                        <button class="p-xxs imgHolder col-sm-12">
+                            <img src="~/images/9650279.jpg" />
+                            <span class="label"><strong>Template #1</strong></span>
+                        </button>
+                    </div>
+  
+
+                   
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="ibox-footer col-lg-12">
+                <div></div>
+                <input type="submit" class="pull-right btn btn-primary btn-xs" value="Submit"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/chosen/chosen.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/chosen/chosen.css" />
+    </environment>
+}
+
+@section Scripts {
+    <environment names="Development">
+        <script src="~/lib/chosen/chosen.jquery.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/chosen/chosen.jquery.js"></script>
+    </environment>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.chosen-select').chosen();
+
+        });
+        $(document).ready(function () {
+            resizeChosen();
+            jQuery(window).on('resize', resizeChosen);
+
+            
+        });
+
+        function resizeChosen() {
+            $(".chosen-container").each(function () {
+                $(this).attr('style', 'width: 100%');
+
+            });
+            $(".txtArea").each(function () {
+                $(this).attr('style', 'width: 100%');
+
+            });
+        }
+
+    </script>
+}

@@ -1,4 +1,4 @@
-module.exports = function(grunt){
+﻿module.exports = function (grunt) {
     'use strict';
 
     // Force use of Unix newlines
@@ -80,7 +80,7 @@ module.exports = function(grunt){
                     cwd: 'js/locales/',
                     src: '*.js',
                     dest: 'dist/locales/',
-                    rename: function(dest, name){
+                    rename: function (dest, name) {
                         return dest + name.replace(/\.js$/, '.min.js');
                     }
                 }]
@@ -199,7 +199,7 @@ module.exports = function(grunt){
     });
 
     // These plugins provide necessary tasks.
-    require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
+    require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
     require('time-grunt')(grunt);
 
     // JS distribution task.
@@ -222,14 +222,14 @@ module.exports = function(grunt){
     grunt.registerTask('bump-version', 'string-replace');
 
     // Docs task.
-    grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function(){
+    grunt.registerTask('screenshots', 'Rebuilds automated docs screenshots', function () {
         var phantomjs = require('phantomjs').path;
 
-        grunt.file.recurse('docs/_static/screenshots/', function(abspath){
+        grunt.file.recurse('docs/_static/screenshots/', function (abspath) {
             grunt.file.delete(abspath);
         });
 
-        grunt.file.recurse('docs/_screenshots/', function(abspath, root, subdir, filename){
+        grunt.file.recurse('docs/_screenshots/', function (abspath, root, subdir, filename) {
             if (!/.html$/.test(filename))
                 return;
             subdir = subdir || '';

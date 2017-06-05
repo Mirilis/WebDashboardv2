@@ -3,134 +3,157 @@
     ViewData["Title"] = "Process Cards";
 
 }
-@{ 
+@{
     List<WebDashboardv2.Model.MinProcessCard> ProcessCards = (List<WebDashboardv2.Model.MinProcessCard>)ViewData["ProcessCards"];
     string ProcessCardClass = (string)ViewData["CardClass"];
-    string CanEdit = ViewData["UserAccess"].ToString().ToLower(); 
+    string CanEdit = ViewData["UserAccess"].ToString().ToLower();
 }
 <head>
     <style>
-        .update-label{
-            display:none;
+        .update-label {
+            display: none;
         }
+      
     </style>
 </head>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>@ProcessCardClass Process Cards</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                                           placeholder="Search Process Cards">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>@ProcessCardClass Process Cards</h5>
+            </div>
+            <div class="ibox-content">
+                <table class="footable table footable-filtering-left" data-show-toggle="false" data-filtering="true" data-filter-min="0" data-page-size="25">
+                    <thead>
+                        <tr>
+                            <th width="125">Product</th>
+                            <th data-breakpoints="xs sm md" width="125">Department</th>
+                            <th width="50">PDF</th>
+                            <th data-breakpoints="xs sm md" width="50">Quality Alerts</th>
+                            <th data-breakpoints="xs sm md" width="50">Quality Concerns</th>
+                            @if (bool.Parse(CanEdit))
+                            {
+                                <th data-breakpoints="xs sm md" width="50" align="center">EDIT</th>
+                                <th data-breakpoints="all"></th>
+                                                
+                            }
 
-                                    <table class="footable table toggle-circle table-stripped" data-filter-min="0" data-page-size="25" data-filter=#filter>
-                                        <thead>
-                                            <tr>
-                                                <th width="125">Product</th>
-                                                <th width="125" >Department</th>
-                                                <th width="50">PDF</th>
-                                                <th width="50" >Quality Alerts</th>
-                                                <th width="50" >Quality Concerns</th>
-                                                @if (bool.Parse(CanEdit))
-                                                {
-                                                <th width="50" align="center">EDIT</th>
-                                                <th data-hide="all">Details</th>
-                                               }
-                                              
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-@foreach (var card in ProcessCards)
-{
-                                            <tr class="gradeX" id="@card.ID-main">
-                                                <td>@card.ProductName</td>
-                                                <td >@card.ProcessCardType</td>
-                                                <td ><a href='@string.Format("http://ncwebtest:8001/api/pdf/{0}", @card.ID)' ><i class="fa fa-file-pdf-o"/></a></td>
-                                                <td ><a asp-controller="QualityAlerts", asp-action="Index" asp-route-product="@card.ProductName"><i class="fa fa-exclamation-circle" /></a></td>
-                                                <td ><a asp-controller="QualityConcerns" , asp-action="Index" asp-route-id="@card.ID"><i class="fa fa-question-circle" /></a></td>
-                                                @if (bool.Parse(CanEdit))
-                                                {
-		                                            <td ><a id="@card.ID-edit" asp-controller="ProcessCards" asp-action="Edit" asp-route-id="@card.ID" class="edit-button"><i class="fa fa-edit"/></a></td>
-                                                }
-                                                <td>
-                                                <div id="@card.ID-details">
-                                                   </div>@Html.Partial("_EditDetails") </td>
-                                            </tr>
-}
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="5">
-                                                    <ul class="pagination pull-right"></ul>
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var card in ProcessCards)
+                        {
+                            <tr class="gradeX" id="@card.ID-main">
+                                <td>@card.ProductName</td>
+                                <td>@card.ProcessCardType</td>
+                                <td><a class="btn btn-primary btn-xs" href='@string.Format("http://ncwebtest:8001/api/pdf/{0}", @card.ID)'>View <i class="fa fa-file-pdf-o" /></a></td>
+                                <td>
+                                    <a asp-controller="QualityAlerts" asp-action="Partial90d" asp-route-product="@card.ProductName" id="@card.ProductName-90d" name="@card.ID-cardID" class="btn loadPartial btn-primary btn-xs">
+                                        Show
+                                        <i class="fa fa-arrow-circle-down"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="QualityConcerns" asp-action="PartialConcerns" asp-route-product="@card.ProductName" id="@card.ProductName-concerns" name="@card.ID-cardID" class="btn loadPartial btn-primary btn-xs">
+                                        Show
+                                        <i class="fa fa-arrow-circle-down"></i>
+                                    </a>
+                                </td>
+                                @if (bool.Parse(CanEdit))
+                                {
+                                    <td><a name="@card.ID-cardID" id="@card.ProductName-edit" asp-controller="ProcessCards" asp-action="Edit" asp-route-id="@card.ID" class="btn btn-primary btn-xs loadPartial">Edit <i class="fa fa-edit"></i></a></td>
+                                }
+                                <td>
+                                    <div id="@card.ID-details"></div>
+                                </td>
 
 
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <ul class="pagination pull-right"></ul>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 
 
 
-    
+
+
+
+
 @section Styles {
     <environment names="Development">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/lib/footable/css/footable.core.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/footable/compiled/footable.core.bootstrap.min.css" />
     </environment>
 }
 
 @section Scripts {
-    <environment names="Development,Staging,Production">
-        <script src="~/lib/footable/dist/footable.all.min.js"></script>
+    <environment names="Development">
+        <script src="~/lib/footable/compiled/footable.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/footable/compiled/footable.min.js"></script>
     </environment>
 
     <script type="text/javascript">
         $(document).ready(function () {
-
             $('.footable').footable();
+           
         });
     </script>
 
 
-                <script type="text/javascript">
+    <script type="text/javascript">
                     $(document).ready(function () {
 
                         // Add slimscroll to element
                         $('.scroll_content').slimscroll({
                             height: '25px'
-                        })
+                        });
+
                         $('input[name="lockedTxt"]').attr("readonly", !@CanEdit);
-                        $('.edit-button').click( function (evt) {
+                        $('.loadPartial').click(function (evt) {
                             evt.preventDefault();
                             evt.stopPropagation();
-                            var a = $(this).attr("id").replace("edit", "details");
+                            var product = evt.currentTarget.name.replace('-cardID', '');
+                            $('#' + product + '-details').empty();
                             url = $(this).attr('href');
-                            $("div[id='" + a + "']").load(url, function () { 
-                                var a = $(this).attr("id").replace("details", "main");
-                                $("tr[id='" + a + "']").trigger('footable_toggle_row');
+                            var d = document.createElement("div");
+                            d.id = product + "-details-item";
+                            console.log($('#' + product + '-details').length);
+                            $('#' + product + '-details').append(d);
+                            $('#' + d.id).load(url, function () {
+                                if (!($('#' + product + '-main').attr("data-expanded")) == true) {
+                                    $('#' + product + '-main').trigger('click');
+                                }
+                                $('.footable').trigger('footable_initialize');
+                                
+                              
+                                
                             });
-                            
-
-                            
-                            
                         });
                     });
 
 
-                </script>
-            }
+    </script>
+}
 
 

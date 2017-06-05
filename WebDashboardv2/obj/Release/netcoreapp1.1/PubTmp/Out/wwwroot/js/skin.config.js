@@ -1,5 +1,4 @@
-﻿
-// Config box
+﻿// Config box
 
 // Enable/disable fixed top navbar
 $('#fixednavbar').click(function () {
@@ -93,7 +92,6 @@ $('#collapsemenu').click(function () {
         if (localStorageSupport) {
             localStorage.setItem("collapse_menu", 'on');
         }
-
     } else {
         $("body").removeClass('mini-navbar');
         SmoothlyMenu();
@@ -127,7 +125,6 @@ $('#boxedlayout').click(function () {
         if (localStorageSupport) {
             localStorage.setItem("fixedfooter", 'off');
         }
-
 
         if (localStorageSupport) {
             localStorage.setItem("boxedlayout", 'on');

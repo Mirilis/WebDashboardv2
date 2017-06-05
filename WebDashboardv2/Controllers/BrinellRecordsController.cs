@@ -12,8 +12,8 @@ namespace WebDashboardv2.Controllers
         private readonly List<Model.ProductionHardness> productionHardnesses;
         public BrinellRecordsController(Model.BrinellRecordsContext bContext)
         {
-            this.bContext = bContext;
-            this.productionHardnesses = bContext.ProductionHardnesses.Where(x=>x.Date >= DateTime.Now.AddDays(-90)).OrderByDescending(y=>y.Date).ToList();
+                this.bContext = bContext;
+                this.productionHardnesses = bContext.ProductionHardnesses.Where(x => x.Date >= DateTime.Now.AddDays(-90) && x.HTCode != "HT").OrderByDescending(y => y.Date).ToList();
         }
         public IActionResult Index()
         {
