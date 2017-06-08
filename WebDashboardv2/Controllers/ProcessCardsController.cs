@@ -31,27 +31,26 @@ namespace WebDashboardv2.Controllers
         {
             try
             {
-
-                        var p = value.Split('-');
-            if (p.Count() == 4)
-            {
-                p[2] = Path.GetFileName(p[2]);
-                p[2] = p[2].Replace('*', '-');
-                var q = new string[3] { p[0], p[1], p[2], };
-                p = q;
-            }
-            if (p.Count() == 3)
-            {
-
-                var a = ProcessCards.Update(p[0], p[1], p[2]);
-                if (a)
+                var p = value.Split('-');
+                if (p.Count() == 4)
                 {
-                    return string.Format("{0}-{1}-true", p[0], p[1]);
+                    p[2] = Path.GetFileName(p[2]);
+                    p[2] = p[2].Replace('*', '-');
+                    var q = new string[3] { p[0], p[1], p[2], };
+                    p = q;
                 }
-                return string.Format("{0}-{1}-false", p[0], p[1]);
+                if (p.Count() == 3)
+                {
+                    var a = ProcessCards.Update(p[0], p[1], p[2]);
+                    if (a)
+                    {
+                        return string.Format("{0}-{1}-true", p[0], p[1]);
+                    }
+                    return string.Format("{0}-{1}-false", p[0], p[1]);
+                }
+
+                return "Bad Data Submitted.";
             }
-            return "Bad Data Submitted.";
-        }
             catch (Exception ex)
             {
                 return ex.ToString();
@@ -61,7 +60,7 @@ namespace WebDashboardv2.Controllers
         [HttpPost]
         public string UploadImage()
         {
-        
+
             long size = 0;
             var files = Request.Form.Files;
             foreach (var file in files)

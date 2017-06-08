@@ -1,10 +1,9 @@
 
 @{
-    ViewData["Title"] = "ViewAll";
+    ViewData["Title"] = "Brinell Records";
     List<WebDashboardv2.Model.ProductionHardness> productionHardnesses = (List<WebDashboardv2.Model.ProductionHardness>)ViewData["Records"];
 }
 
-<h2>ViewAll</h2>
 <head>
     <style>
         .update-label {
@@ -22,7 +21,7 @@
     <div class="col-lg-12">
         <div class="ibox no-margins">
             <div class="ibox-title">
-                <h5>Production Hardness Records</h5>
+                <h5>Production Hardness Records (No Heat Treated Products Listed)</h5>
             </div>
             <div class="ibox-content">
 
@@ -33,7 +32,7 @@
                             <th width="100">Product</th>
                             <th data-breakpoints="xs sm md" width="50">Quantity Produced</th>
                             <th width="50">Records Taken</th>
-                            <th width="50">Records Expected</th>
+                            <th data-breakpoints="xs sm md" width="50">Records Expected</th>
                             <th data-breakpoints="xs sm md" width="150">Minimum Reading</th>
                             <th data-breakpoints="xs sm md" width="150">Maximum Reading</th>
                             <th data-breakpoints="all" width="50">Low Range</th>

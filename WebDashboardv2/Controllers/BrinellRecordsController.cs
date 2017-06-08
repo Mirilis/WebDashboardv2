@@ -13,7 +13,7 @@ namespace WebDashboardv2.Controllers
         public BrinellRecordsController(Model.BrinellRecordsContext bContext)
         {
                 this.bContext = bContext;
-                this.productionHardnesses = bContext.ProductionHardnesses.Where(x => x.Date >= DateTime.Now.AddDays(-90) && x.HTCode != "HT").OrderByDescending(y => y.Date).ToList();
+                
         }
         public IActionResult Index()
         {
@@ -21,10 +21,22 @@ namespace WebDashboardv2.Controllers
             return View();
         }
 
-        public IActionResult ViewAll()
+        public async Task<IActionResult> ViewAll()
         {
-            ViewData["Records"] = productionHardnesses;
+
+            ViewData["Records"] = await GetHardnessesAsync();
             return View();
+        }
+
+        public async Task<List<Model.ProductionHardness>> GetHardnessesAsync()
+        {
+            return await Task.Run(() => GetHardnesses());
+            
+        }
+
+        private List<Model.ProductionHardness> GetHardnesses()
+        {
+            return bContext.ProductionHardnesses.Where(x => x.Date >= DateTime.Now.AddDays(-90) && x.HTCode != "HT").OrderByDescending(y => y.Date).ToList();
         }
     }
 }
