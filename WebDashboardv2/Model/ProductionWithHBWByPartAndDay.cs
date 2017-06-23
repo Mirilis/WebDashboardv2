@@ -1,23 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System;
-namespace WebDashboardv2.Model
+﻿namespace WebDashboardv2.Model
 {
-    [Table("ProductionWithBHNByPartAndDay")]
-    public class ProductionHardness
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("ProductionWithHBWByPartAndDay")]
+    public class ProductionHardnessSummary
     {
         [Key]
         public int ID { get; set; }
         public string Product { get; set; }
         public DateTime Date { get; set; }
-        public decimal Quantity { get; set; }
+        public int? Quantity { get; set; }
         public int? BHNCount { get; set; }
         public double? Minimum { get; set; }
         public double? Max { get; set; }
-        public string HTCode { get; set; }
         public double? RangeLow { get; set; }
         public double? RangeHigh { get; set; }
-        public string DateCode { get; set; }
         [NotMapped]
         public int RecordCount
         {
@@ -94,4 +93,5 @@ namespace WebDashboardv2.Model
             }
         }
     }
+
 }

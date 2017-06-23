@@ -8,9 +8,10 @@ using WebDashboardv2.Model;
 namespace WebDashboardv2.Migrations.BrinellRecords
 {
     [DbContext(typeof(BrinellRecordsContext))]
-    partial class BrinellRecordsContextModelSnapshot : ModelSnapshot
+    [Migration("20170620152957_cheese")]
+    partial class cheese
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

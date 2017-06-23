@@ -8,8 +8,12 @@ namespace WebDashboardv2.Model
         {
         }
 
-        public DbSet<BossRangeData> RangeData { get; set; }
-        public DbSet<Records> Records { get; set; }
-        public DbSet<ProductionHardness> ProductionHardnesses { get; set; }
+        public DbSet<Record> Records { get; set; }
+        public DbSet<ProductionHardnessSummary> ProductionHardnessSummaries { get; set; }
+       
+        public DbSet<FileManagerHistory> FileManagerHistory { get; set; }
+        public DbSet<SuspectRecord> SuspectRecords { get; set; }
+        public DbSet<HistoricalRecord> HistoricalRecords { get; set; }
+        public DbSet<RangeData> RangeData { get; set; }
     }
 }

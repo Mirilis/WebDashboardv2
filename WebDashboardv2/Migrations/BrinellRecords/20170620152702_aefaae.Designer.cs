@@ -8,9 +8,10 @@ using WebDashboardv2.Model;
 namespace WebDashboardv2.Migrations.BrinellRecords
 {
     [DbContext(typeof(BrinellRecordsContext))]
-    partial class BrinellRecordsContextModelSnapshot : ModelSnapshot
+    [Migration("20170620152702_aefaae")]
+    partial class aefaae
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -89,7 +90,7 @@ namespace WebDashboardv2.Migrations.BrinellRecords
 
                     b.HasKey("ID");
 
-                    b.ToTable("ProductionWithHBWByPartAndDay");
+                    b.ToTable("ProductionHardnessSummaries");
                 });
 
             modelBuilder.Entity("WebDashboardv2.Model.RangeData", b =>

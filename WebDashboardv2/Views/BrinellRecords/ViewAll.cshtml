@@ -1,7 +1,7 @@
 
 @{
     ViewData["Title"] = "Brinell Records";
-    List<WebDashboardv2.Model.ProductionHardness> productionHardnesses = (List<WebDashboardv2.Model.ProductionHardness>)ViewData["Records"];
+    List<WebDashboardv2.Model.ProductionHardnessSummary> productionHardnesses = (List<WebDashboardv2.Model.ProductionHardnessSummary>)ViewData["Records"];
 }
 
 <head>
@@ -42,24 +42,24 @@
                     <tbody>
                         @foreach (var entry in productionHardnesses)
                         {
-                            int a = (int)Math.Round(((double)entry.Quantity / 30), 0);
+                            int a = (int)Math.Round(((double)entry.Quantity / 60), 0);
                             if (a < 2)
                             {
                                 a = 2;
                             }
                             bool min = false;
                             bool max = false;
-                            if (entry.MinReading <= entry.MinAllowable - 1)
+                            if (entry.MinReading <= entry.MinAllowable - 1 || entry.MinReading >= entry.MaxAllowable)
                             {
                                 min = true;
                             }
-                            if (entry.MaxReading >= entry.MaxAllowable + 1)
+                            if (entry.MaxReading >= entry.MaxAllowable + 1 || entry.MaxReading <= entry.MinAllowable)
                             {
                                 max = true;
                             }
 
                             var p = "";
-                            if (entry.RecordCount == 0)
+                            if (entry.RecordCount == 0 || (min && max))
                             {
                                 p = "danger";
                             }
@@ -78,14 +78,14 @@
                                     @entry.MinReading.ToString()
                                     @if (min)
                                     {
-                                        <label class="label label-danger">Out of Range</label>
+                                        <label class="label label-danger">OoR</label>
                                     }
                                 </td>
                                 <td>
                                     @entry.MaxReading.ToString()
                                     @if (max)
                                     {
-                                        <label class="label label-danger">Out of Range</label>
+                                        <label class="label label-danger">OoR</label>
                                     }
                                 </td>
                                 <td>@entry.MinAllowable.ToString()</td>

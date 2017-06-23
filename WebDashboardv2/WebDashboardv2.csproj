@@ -33,7 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\MaterialCertification\" />
-    <Folder Include="Views\BrinellRecords\" />
     <Folder Include="Views\LayeredProcessAuditing\" />
     <Folder Include="Views\SampleManager\" />
   </ItemGroup>
